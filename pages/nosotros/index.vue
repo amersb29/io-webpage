@@ -1,27 +1,28 @@
 <template lang="html">
   <div>
     <section class="container">
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-md-12 centerContentColum">
           <h2>ESCUELA DE PENSAMIENTO</h2>
           <h1 class="txtRed">INTELIGENCIA OBJETIVA</h1>
           <h5 class="margin-top-50">UNA MIRADA AL INTERIOR</h5>
           <nuxt-link to="/membresias" class="btn-rojo">Ver Membres&iacute;as</nuxt-link>
         </div>
-      </div>
-      <div class="row margin-top-100">
-        <div class="col-md-6 centerContentColum">
-          <h1 class="txtRed">CON&Oacute;CENOS</h1>
-        </div>
-        <div class="col-md-6 txtJustify">
-          <p>
+      </div> -->
+      <b-row class="margin-top-100">
+        <b-col md="4" class="centerContentColum">
+          <h1>NOSOTROS</h1>
+        </b-col>
+        <b-col md="6" class="colContentAtLeftBottom" >
+          <p class="txtJustify">
             La seriedad y profundidad de nuestro sistema de pensamiento se deriva de los más de 20 años de investigación que nuestro fundador ha dedicado para comprender la mente y la conciencia de sí, acercándose a expertos en materias como la filosofía, antropología, sociología, neurología, etc.
           </p>
-          <p>
+          <p class="txtJustify">
             A lo largo de su trayectoria Martín Aparicio ha buscado generar un cambio positivo en la vida de quien lo escucha, dando a la gente temas de consciencia y desarrollo personal que forman parte del sistema de pensamiento Inteligencia Objetiva, a través de programas en su canal de televisión en línea "Televisión Objetiva", diversos espacios en televisión abierta, su programa de radio, su página web y las redes sociales.
           </p>
-        </div>
-      </div>
+          <nuxt-link to="/membresias" class="btn-membresias">Ver Membres&iacute;as</nuxt-link>
+        </b-col>
+      </b-row>
       <div class="row margin-top-100">
         <div class="col-md-12 centerContentColum">
           <iframe class="mySlidess" src="https://player.vimeo.com/video/199081000" style="width:100%; max-width: 80%;" width="640" height="360" frameborder="0"></iframe>

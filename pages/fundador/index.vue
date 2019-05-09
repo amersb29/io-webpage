@@ -3,7 +3,7 @@
     <section class="container">
       <div class="row justify-content-center margin-top-100">
         <div class="col-md-6">
-          <!-- <img src="~/assets/img/foto_martin.jpg" class="fundador-img"/> -->
+          <img src="~/assets/img/imagen_fondo_fundador.jpg" class="fundador-img"/>
         </div>
         <div class="col-md-6  txtJustify">
           <p>

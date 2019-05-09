@@ -114,6 +114,11 @@ html {
   display: flex;
   flex-direction: row;
 }
+.colContentAtLeftBottom{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
 .txtRed{
   color: #dc3545;
 }
@@ -147,13 +152,18 @@ html {
 .margin-bottom-50{
   margin-bottom: 50px;
 }
-.btn-rojo, .btn-rojo:hover{
+.btn-rojo, .btn-rojo:hover, .btn-membresias, btn-membresias:hover{
   background-color: #dc3545;
   border-radius: 5px;
   color: #fff;
   padding: .7em;
   text-decoration: none;
 }
+.btn-membresias{
+  margin-top: 30px;
+  display: inline-block;
+}
+
 .red_list{
   align-content: center;
   background-color: #D63D37;

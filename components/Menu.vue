@@ -5,7 +5,7 @@
     <div class="menuOptions">
       <b-nav>
         <b-nav-item to="/" active>Inicio</b-nav-item>
-        <b-nav-item to="/conocenos">Con&oacute;cenos</b-nav-item>
+        <b-nav-item to="/nosotros">Nosotros</b-nav-item>
         <b-nav-item to="/fundador">Fundador</b-nav-item>
         <b-nav-item-dropdown id="nav7_ddown" text="Catálogo" extra-toggle-classes="nav-link-custom" left>
           <b-dropdown-item to="/cursos/1">CURSOS EN L&Iacute;NEA</b-dropdown-item>
@@ -149,6 +149,13 @@ export default{
   cursor: pointer;
 }
 
+.nav-link-custom{
+  color: black !important;
+}
+
+.nav-link-custom:hover{
+  color: red !important;
+}
 
 .fa-shopping-cart{
   margin-right: 5px;

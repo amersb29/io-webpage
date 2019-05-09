@@ -81,7 +81,7 @@
           <div class="col-md-3 txtWhite">
             <h2 class="h2-footer">Conócenos</h2>
             <ul class="lista-footer">
-              <li><nuxt-link to="/conocenos">Nosotros</nuxt-link></li>
+              <li><nuxt-link to="/nosotros">Nosotros</nuxt-link></li>
               <li><nuxt-link to="/fundador">Fundador</nuxt-link></li>
             </ul>
           </div>
