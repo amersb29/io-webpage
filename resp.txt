@@ -1,0 +1,46 @@
+<section class="margin-top-50">
+  <div class="txtCenter">
+    <h3 class="txtRed">CONOCE LA EXPERIENCIA DE NUESTROS ESTUDIANTES</h3>
+    <h5>AL IGUAL QUE ELLOS PUEDES FORMAR PARTE DE LA EVOLUCIÓN</h5>
+  </div>
+  <div>
+    <Experience name="Victor Flores"
+                comment="Este método de enseñanza a distancia es muy bueno, ya que me permite organizar mejor mis actividades y acomodar la hora en que puedo dedicarle tiempo de estudio a la enseñanza de Martín. También puedo ver los videos en casa o bien cuando estoy de viaje. Además, pienso que todo este conocimiento es muy útil para mi crecimiento interno y aparte es muy ameno."
+                avatar="VictorFlores.jpg"/>
+    <!-- <b-carousel
+      id="carousel-fade"
+      style="text-shadow: 0px 0px 2px #000"
+      fade
+      indicators
+      img-width="1024"
+      img-height="480"
+    >
+      <b-carousel-slide
+        img-blank>
+        <Experience name="Victor Flores"
+                    comment="Este método de enseñanza a distancia es muy bueno, ya que me permite organizar mejor mis actividades y acomodar la hora en que puedo dedicarle tiempo de estudio a la enseñanza de Martín. También puedo ver los videos en casa o bien cuando estoy de viaje. Además, pienso que todo este conocimiento es muy útil para mi crecimiento interno y aparte es muy ameno."
+                    avatar="VictorFlores.jpg"/>
+      </b-carousel-slide>
+      <b-carousel-slide
+        img-blank>
+        <Experience name="Keila Merodio"
+                    comment="Me siento cada vez mejor esutiando aquí y observando en la vida diaria como voy aplicando el conocimiento adquirido. Ha sido trascendental para mi porque por primera vez comencé a tener convicción de lo que hago y a darle un cambio y sentido a mi vida."
+                    avatar="KeilaMerodio.jpg"/>
+      </b-carousel-slide>
+      <b-carousel-slide
+        img-blank>
+        <Experience name="Carlos López"
+                    comment="Puedo ir a las conferencias de Martín o a ver directamente la retransmisión de cualquiera de ellas. Me conecto desde internet para tomar los programas, aprendo y hago repasos todo el tiempo. El conocimiento de Martín es único, si aplicas su saber y su método te transformarás para hacer de ti el mejor ser que podrás llegar a ser."
+                    avatar="CarlosLopez.jpg"/>
+      </b-carousel-slide>
+      <b-carousel-slide
+        img-blank>
+        <Experience name="Angélica Ruiz"
+                    comment="Satisfacción total con inteligencia objetiva. Me ha dado nuevos ojos para mirar nuevas y fascinantes perspectivas."
+                    avatar="AngelicaRuiz.jpg"/>
+      </b-carousel-slide>
+    </b-carousel> -->
+  </div>
+  <div class="centerContentRow">
+  </div>
+</section>
