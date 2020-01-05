@@ -1,0 +1,15 @@
+query($tipo_producto_id: Int!){
+  productsFilter(tipo_producto_id: $tipo_producto_id){
+    id
+    name
+    description
+    image
+    tipoProducto {
+      price
+    }
+    videos {
+        is_preview
+        vimeo_id
+    }
+  }
+}

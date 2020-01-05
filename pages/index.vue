@@ -186,7 +186,10 @@ import Testimonio from '~/components/testimonios/Testimonio.vue'
 import Frase from '~/components/Frase.vue'
 
 export default{
-  components: {Benefit, Card, Testimonio, Frase}
+  components: {Benefit, Card, Testimonio, Frase},
+  mounted(){
+    this.$store.dispatch('queryCampus')
+  }
 }
 </script>
 

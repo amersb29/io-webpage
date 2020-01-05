@@ -31,48 +31,48 @@
           <div class="col-md-3 txtWhite">
             <h2 class="h2-footer txtWhite">Cont&aacute;ctanos</h2>
             <div class="contacto">
-              <i class="fas fa-phone contacto-icon"></i>
+              <fa icon="phone" class="contacto-icon"/>
               <span>55 6363 0050 / 55 4632 5118</span>
             </div>
             <div class="contacto">
-              <i class="fab fa-whatsapp contacto-icon"></i>
+              <fa icon="whatsapp" class="contacto-icon"/>
               <span>55 1951 4412</span>
             </div>
             <div class="contacto">
-              <i class="fas fa-envelope contacto-icon"></i>
+              <fa icon="envelope" class="contacto-icon"/>
               <span>contacto@iobjetiva.com</span>
             </div>
             <div class="contacto">
-              <i class="fas fa-map-marker-alt contacto-icon"></i>
+              <fa icon="map-marker-alt" class="contacto-icon"/>
               <span>Gutenberg 89, col. Anzures. Ciudad de México </span>
             </div>
           </div>
           <div class="col-md-3 txtWhite">
             <h2 class="h2-footer">Ligas</h2>
             <div class="contacto padding-footer-content">
-              <i class="fab fa-facebook contacto-icon"></i>
+              <fa icon="facebook-square" class="contacto-icon"/>
               <span>/InteligenciaObjetivaMx</span>
             </div>
             <div class="contacto padding-footer-content">
-              <i class="fab fa-youtube contacto-icon"></i>
+              <fa icon="youtube" class="contacto-icon"/>
               <span>InteligenciaObjetivaMx</span>
             </div>
             <div class="contacto padding-footer-content">
-              <i class="fab fa-facebook contacto-icon"></i>
+              <fa icon="facebook-square" class="contacto-icon"/>
               <span>/televisionobjetivamx</span>
             </div>
             <div class="contacto padding-footer-content">
-              <i class="fas fa-desktop contacto-icon"></i>
+              <fa icon="desktop" class="contacto-icon"/>
               <span>televisionobjetiva.com</span>
             </div>
           </div>
           <div class="col-md-3 txtWhite">
             <h2 class="h2-footer">Categorías</h2>
             <ul class="lista-footer">
-              <li><nuxt-link to="/cursos_en_linea">Cursos en l&iacute;nea</nuxt-link></li>
-              <li><a href="#">Cursos presenciales</a></li>
-              <li><a href="#">Conferencias en l&iacute;nea</a></li>
-              <li><a href="#">Documentales</a></li>
+              <li><nuxt-link to="/catalogo/1">Cursos en l&iacute;nea</nuxt-link></li>
+              <li><nuxt-link to="/cursos_presenciales">Cursos presenciales</nuxt-link></li>
+              <li><nuxt-link to="/catalogo/2">Conferencias en l&iacute;nea</nuxt-link></li>
+              <li><nuxt-link to="/catalogo/5">Documentales</nuxt-link></li>
               <li><nuxt-link to="/membresias">Membres&iacute;as</nuxt-link></li>
               <li><a href="#">Contenido gratuito</a></li>
               <li><a href="#">Libro Conciencia de Sí</a></li>
@@ -116,7 +116,7 @@ footer{
   padding: 30px 0;
 }
 #suscripcion{
-  background-color: #dc3545;
+  background-color: #D63D37;
   height: 230px;
   padding-top: 30px;
 }
@@ -131,18 +131,19 @@ footer{
   color: inherit;
 }
 .contacto-icon{
+  display: inline-block;
   margin-right: 15px;
 }
 .padding-top-30{
   padding-top: 30px;
 }
 .boletin{
-  background-color: #dc3545;
+  background-color: #D63D37;
   color: white;
 }
 .aviso-de-privacidad a{
   text-decoration: none;
-  color: #dc3545;
+  color: #D63D37;
 }
 .padding-footer-content{
   padding-left: 40px;
@@ -153,7 +154,8 @@ footer{
   margin-bottom: 35px;
 }
 .contacto{
-  display: block;
+  align-items: center;
+  display: flex;
   margin: 0 0 15px;
 }
 </style>

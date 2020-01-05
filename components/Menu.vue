@@ -7,21 +7,21 @@
         <b-nav-item to="/" active>Inicio</b-nav-item>
         <b-nav-item to="/nosotros">Nosotros</b-nav-item>
         <b-nav-item to="/fundador">Fundador</b-nav-item>
-        <b-nav-item-dropdown id="nav7_ddown" text="Catálogo" extra-toggle-classes="nav-link-custom" left>
-          <b-dropdown-item to="/cursos/1">CURSOS EN L&Iacute;NEA</b-dropdown-item>
-          <b-dropdown-item to="/cursos/2">CONFERENCIAS EN L&Iacute;NEA</b-dropdown-item>
-          <b-dropdown-item to="/cursos/5">DOCUMENTALES</b-dropdown-item>
+        <b-nav-item-dropdown id="nav7_ddown" text="Catálogo" extra-toggle-classes="nav-link-custom" left variant="dark">
+          <b-dropdown-item to="/catalogo/1">CURSOS EN L&Iacute;NEA</b-dropdown-item>
+          <b-dropdown-item to="/catalogo/2">CONFERENCIAS EN L&Iacute;NEA</b-dropdown-item>
+          <b-dropdown-item to="/catalogo/3">DOCUMENTALES</b-dropdown-item>
           <b-dropdown-divider></b-dropdown-divider>
-          <b-dropdown-item to="/cursos/6"><span class="txtRed">CONTENIDO GRATUITO</span></b-dropdown-item>
+          <b-dropdown-item to="/catalogo/6"><span class="txtRed">CONTENIDO GRATUITO</span></b-dropdown-item>
         </b-nav-item-dropdown>
-        <b-nav-item>Cursos Presenciales</b-nav-item>
+        <b-nav-item to="/cursos_presenciales">Cursos Presenciales</b-nav-item>
         <b-nav-item to="/membresias">Membres&iacute;as</b-nav-item>
         <b-nav-item href="https://televisionobjetiva.com/">TelevisionObjetiva</b-nav-item>
 
       </b-nav>
       <div id="secondMenu">
         <b-nav >
-          <b-nav-item class="shopping-cart"><i class="fas fa-shopping-cart"></i><span>(0)</span></b-nav-item>
+          <b-nav-item class="shopping-cart"><fa icon="shopping-cart"/><span>(0)</span></b-nav-item>
           <b-nav-item>
             <a @click.prevent="showModal()" href="#">Iniciar Sesi&oacute;n</a>
           </b-nav-item>
@@ -35,12 +35,20 @@
       <span>
         ELIGE TU CIUDAD >
       </span>
-      <ul>
-        <li><a>México</a></li>
-        <li><a>Los Ángeles</a></li>
-        <li><a>Phoenix</a></li>
-        <li><a>San Diego</a></li>
-      </ul>
+      <ApolloQuery :query="require(`@/graphql/queries/Sedes.gql`)">
+        <template v-slot="{ result: { loading, error, data } }">
+            <!-- <div v-if="loading" class="loading apollo">Loading...</div> -->
+            <div v-if="error" class="error apollo">An error occurred</div>
+            <div v-else-if="data">
+              <ul>
+                <li v-for="sede in data.sedes" :key="sede.id">
+                  <a :class="sedeClassObj(sede.id)" @click="cambiarSede(sede.id)">{{sede.name}}</a>
+                </li>
+              </ul>
+            </div>
+            <div v-else class="no-result apollo">No result :(</div>
+        </template>
+        </ApolloQuery>
     </div>
     <b-modal id="login" title="Iniciar de sesión" size="lg" hide-header hide-footer class="centerContentColum">
       <div>
@@ -94,14 +102,25 @@ import Logo from '~/components/Logo.vue'
 export default{
   components: {Logo},
   methods: {
+    cambiarSede( id ){
+      this.$store.commit('updateCampusId', id)
+    },
     showModal () {
       this.$root.$emit('bv::show::modal', 'login')
+    },
+    sedeClassObj( sedeId ) {
+      return { selected: +sedeId === +this.campusId }
     }
+  },
+  computed: {
+    campusId() {
+      return this.$store.getters.campusId
+    },
   }
 }
 </script>
 
-<style scoped>
+<style>
 #ioMenu{
   align-items: flex-end;
   display: flex;
@@ -135,11 +154,12 @@ export default{
   -webkit-transform: rotate(90deg);
 }
 #lateral-menu ul{
-  list-style: none;
-  display: flex;
   align-items: flex-end;
+  display: flex;
   flex-direction: column;
+  list-style: none;
   margin-top: 80px;
+  padding-left: 10px;
 }
 #lateral-menu ul li{
   font-size: .7em;
@@ -149,12 +169,11 @@ export default{
   cursor: pointer;
 }
 
-.nav-link-custom{
-  color: black !important;
-}
-
-.nav-link-custom:hover{
-  color: red !important;
+#lateral-menu ul li a.selected {
+  font-weight: bold;
+  text-decoration: underline;
+  text-decoration-color: red;
+  text-decoration-style: double;
 }
 
 .fa-shopping-cart{
@@ -169,7 +188,5 @@ export default{
   padding: 0.5rem .7rem !important;
   text-decoration: none;
 }
-.b-nav-item a{
-  color: black !important;
-}
+
 </style>

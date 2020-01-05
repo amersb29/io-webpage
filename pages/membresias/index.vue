@@ -7,15 +7,21 @@
           <span>Ten acceso a cursos y conferencias exclusivas desde $1,249.00 MXN al mes</span>
         </div>
       </div>
-      <div class="row justify-content-center margin-top-100">
-        <div class="col-md-1">
-          <b-dropdown id="ddown1" text="MONEDA" class="m-md-2">
-            <b-dropdown-item>MXN</b-dropdown-item>
-            <b-dropdown-item>USD</b-dropdown-item>
-          </b-dropdown>
-        </div>
-      </div>
       <div class="row margin-top-50">
+        <!-- <ApolloQuery :query="require(`@/graphql/queries/Membresias.gql`)">
+            <template v-slot="{ result: { loading, error, data } }">
+                <div v-if="loading" class="loading apollo"><Loader/></div>
+                <div v-if="error" class="error apollo">An error occurred</div>
+                <div v-else-if="data">
+                  <div v-for="membresia in data.memberships" :key="membresia.id" class="col-md-6 ">
+                    <Membresia :type="membresia.name.toUpperCase()"
+                              :price="membresia.price"
+                              :currency="currency"
+                              :benefits="getBenefits(membresia.name)"/>
+                  </div>
+                </div>
+            </template>
+        </ApolloQuery> -->
         <div class="col-md-6 centerContentColum">
           <Membresia type="PREMIUM"
                      price="1,249.00"
@@ -42,13 +48,18 @@
             <tbody>
               <tr>
                 <td>Programación de lunes a viernes en televisionobjetiva.com</td>
-                <td><i class="fas fa-check txtRed"></i></td>
-                <td><i class="fas fa-check txtRed"></i></td>
+                <td><fa icon="check" class="txtRed"/></td>
+                <td><fa icon="check" class="txtRed"/></td>
               </tr>
               <tr>
                 <td>Curso intensivo</td>
-                <td><i class="fas fa-check txtRed"></i></td>
-                <td><i class="fas fa-check txtRed"></i></td>
+                <td><fa icon="check" class="txtRed"/></td>
+                <td><fa icon="check" class="txtRed"/></td>
+              </tr>
+              <tr>
+                <td>50% de descuento en nuestros cursos, conferencias y documentales	</td>
+                <td><fa icon="times" class="txtRed"/></td>
+                <td><fa icon="check" class="txtRed"/></td>
               </tr>
               <tr>
                 <td>Conferencia especial</td>
@@ -59,11 +70,6 @@
                 <td>Sesión de preguntas y respuestas con Martín Aparicio</td>
                 <td>1 sesion de preguntas y respuestas	</td>
                 <td>2 sesiones de preguntas y respuestas</td>
-              </tr>
-              <tr>
-                <td>50% de descuento en nuestros cursos, conferencias y documentales	</td>
-                <td><i class="fas fa-times txtRed"></i></td>
-                <td><i class="fas fa-check txtRed"></i></td>
               </tr>
               <tr>
                 <td></td>
@@ -126,7 +132,7 @@ a nuestra membresía PLATINUM.
           </div>
         </div>
       </div>
-      <div class="row margin-top-100 justify-content-center">
+      <div class="row margin-top-100 justify-content-center margin-bottom-100">
         <div class="col-md-6 centerContentColum">
             <h3 class="txtRed">¿Tienes otra pregunta?</h3>
             <p class="txtJustify">
@@ -155,9 +161,10 @@ a nuestra membresía PLATINUM.
 <script>
 import Benefit from '~/components/Benefit.vue'
 import Membresia from '~/components/Membresia.vue'
+import Loader from '@/components/Loader'
 
 export default {
-  components: {Benefit, Membresia},
+  components: {Benefit, Membresia, Loader},
   data(){
     return {
       beneficiosPlatinum: ['Programación de lunes a viernes en TelevisionObjetiva.com',
@@ -171,6 +178,16 @@ export default {
                            '1 curso intensivo',
                            '1 sesión de preguntas y respuestas con Martín Aparicio',
                          ]
+    }
+  },
+  computed: {
+    currency() {
+      return +this.$store.getters.campusId === 1 ? 'MXN' : 'USD' 
+    },
+  },
+  methods: {
+    getBenefits( name ) {
+      return this.$data[`beneficios${name.charAt(0).toUpperCase() + name.slice(1)}`]
     }
   }
 }

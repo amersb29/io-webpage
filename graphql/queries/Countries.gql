@@ -1,0 +1,10 @@
+query{
+  countries{
+    id
+    name
+    sedes {
+        id
+        name
+    }
+  }
+}

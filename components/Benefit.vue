@@ -2,7 +2,9 @@
   <div>
     <div class="red_list_item">
 
-        <div class="emblem"><i :class="'fas fa-'+ icon"></i></div>
+        <div class="emblem">
+          <fa :icon="`${icon}`" />
+        </div> 
 
         <h5>{{text}}</h5>
         <p>{{description}}</p>
@@ -12,19 +14,23 @@
 </template>
 
 <script>
+import { FontAwesomeIcon } from '@fontawesome/vue-fontawesome'
+
 export default {
+  components: { FontAwesomeIcon },
   props: ['text', 'description', 'icon']
 }
 </script>
 
 <style>
 .red_list_item{
-  color: white;
   align-items: center;
+  color: white;
   display: flex;
-  justify-content: center;
   flex-direction: column;
+  justify-content: center;
   margin-right: 70px;
+  max-width: 356px;
 }
 .red_list_item h5, .red_list_item p{
   text-align: center;

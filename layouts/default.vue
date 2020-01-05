@@ -140,6 +140,9 @@ html {
 .margin-top-50{
   margin-top: 50px;
 }
+.margin-top-20{
+  margin-top: 20px;
+}
 .margin-bottom-100{
   margin-bottom: 100px !important;
 }
@@ -152,7 +155,7 @@ html {
 .margin-bottom-50{
   margin-bottom: 50px;
 }
-.btn-rojo, .btn-rojo:hover, .btn-membresias, btn-membresias:hover{
+.btn-rojo, .btn-rojo:hover, .btn-membresias, .btn-membresias:hover{
   background-color: #dc3545;
   border-radius: 5px;
   color: #fff;

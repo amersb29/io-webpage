@@ -17,17 +17,13 @@
 <script>
 export default {
   props: ['type', 'price', 'currency', 'benefits'],
-  methods: {
-    highlight(){
-
-    }
-  }
 }
 </script>
 
 <style lang="css">
 .lista-beneficios{
   text-align: left;
+  width: 100%;
 }
 .membresia-card{
   height: 300px;
