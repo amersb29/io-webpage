@@ -119,6 +119,11 @@ html {
   flex-direction: column;
   align-items: flex-end;
 }
+.fx-jcc-aic {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .txtRed{
   color: #dc3545;
 }

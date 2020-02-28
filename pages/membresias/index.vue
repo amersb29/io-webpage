@@ -48,18 +48,18 @@
             <tbody>
               <tr>
                 <td>Programación de lunes a viernes en televisionobjetiva.com</td>
-                <td><fa icon="check" class="txtRed"/></td>
-                <td><fa icon="check" class="txtRed"/></td>
+                <td><font-awesome-icon icon="check" class="txtRed"/></td>
+                <td><font-awesome-icon icon="check" class="txtRed"/></td>
               </tr>
               <tr>
                 <td>Curso intensivo</td>
-                <td><fa icon="check" class="txtRed"/></td>
-                <td><fa icon="check" class="txtRed"/></td>
+                <td><font-awesome-icon icon="check" class="txtRed"/></td>
+                <td><font-awesome-icon icon="check" class="txtRed"/></td>
               </tr>
               <tr>
                 <td>50% de descuento en nuestros cursos, conferencias y documentales	</td>
-                <td><fa icon="times" class="txtRed"/></td>
-                <td><fa icon="check" class="txtRed"/></td>
+                <td><font-awesome-icon icon="times" class="txtRed"/></td>
+                <td><font-awesome-icon icon="check" class="txtRed"/></td>
               </tr>
               <tr>
                 <td>Conferencia especial</td>
@@ -162,9 +162,10 @@ a nuestra membresía PLATINUM.
 import Benefit from '~/components/Benefit.vue'
 import Membresia from '~/components/Membresia.vue'
 import Loader from '@/components/Loader'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 export default {
-  components: {Benefit, Membresia, Loader},
+  components: {Benefit, Membresia, Loader, FontAwesomeIcon},
   data(){
     return {
       beneficiosPlatinum: ['Programación de lunes a viernes en TelevisionObjetiva.com',

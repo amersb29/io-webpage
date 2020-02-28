@@ -21,7 +21,7 @@
       </b-nav>
       <div id="secondMenu">
         <b-nav >
-          <b-nav-item class="shopping-cart"><fa icon="shopping-cart"/><span>(0)</span></b-nav-item>
+          <b-nav-item class="shopping-cart"><font-awesome-icon icon="shopping-cart"/><span>(0)</span></b-nav-item>
           <b-nav-item>
             <a @click.prevent="showModal()" href="#">Iniciar Sesi&oacute;n</a>
           </b-nav-item>
@@ -97,10 +97,11 @@
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
+import Logo from '@/components/Logo.vue'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 export default{
-  components: {Logo},
+  components: {Logo, FontAwesomeIcon},
   methods: {
     cambiarSede( id ){
       this.$store.commit('updateCampusId', id)
@@ -136,15 +137,18 @@ export default{
 }
 
 #lateral-menu{
-  position: absolute;
+  align-items: flex-start;
   display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-  right: -40px;
+  flex-direction: column;
+  margin-right: 20px;
+  position: absolute;
+  right: 0px;
   top: 200px;
+  width: 110px;
+  z-index: 1;
 }
 
-#lateral-menu span{
+#lateral-menu span {
   border: 1px solid black;
   color: red;
   display: block;
@@ -152,6 +156,7 @@ export default{
   padding: 5px 10px;
   transform: rotate(90deg);
   -webkit-transform: rotate(90deg);
+  width: 175px;
 }
 #lateral-menu ul{
   align-items: flex-end;

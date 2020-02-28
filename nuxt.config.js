@@ -16,7 +16,7 @@ module.exports = {
       { hid: 'description', name: 'description', content: pkg.description }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
     ]
   },
 
@@ -47,17 +47,19 @@ module.exports = {
     'bootstrap-vue/nuxt',
     //Apollo
     '@nuxtjs/apollo',
-    //Fontawesome
+    //Font Awesome
     ['nuxt-fontawesome', {
-      component: 'fa', 
       imports: [
-        //import whole set
-        {
-          set: '@fortawesome/free-solid-svg-icons',
-          icons: ['fas']
-        },
-      ]
-    }]
+       {
+         set: '@fortawesome/free-solid-svg-icons',
+         icons: ['fas']
+       },
+       {
+         set:'@fortawesome/free-brands-svg-icons',
+         icons: ['fab']
+       }
+     ]
+    }],
   ],
 
  // Give apollo module options

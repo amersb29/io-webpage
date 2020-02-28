@@ -93,7 +93,7 @@
                   <h3>Siempre tenemos algo m&aacute;s para ti</h3>
                   <span class="txtBold">Contamos con distintas categor&iacute;as para tu desarrollo</span>
                 </b-col>
-                <b-col md="4" offset-md="1" id="seccionMoneda">
+                <!-- <b-col md="4" offset-md="1" id="seccionMoneda">
                   <h6 class="txtRed">Selecciona tu tipo de moneda</h6>
                   <div class="dropdown">
                      <b-dropdown text="MONEDA" variant="outline-dark" class="m-2">
@@ -101,13 +101,36 @@
                        <b-dropdown-item href="#">USD</b-dropdown-item>
                      </b-dropdown>
                   </div>
-                </b-col>
+                </b-col> -->
               </b-row>
             </b-col>
           </b-row>
           <b-row style="height: 600px;" class="centerContentColum">
             <b-col md="10">
-              <div class="lt-grid-container">
+              <div id="catalogo-grid">
+                <div>
+                  <img src="../assets/img/Imagen_conferencias_en_linea.jpg" alt="Conferencias en línea">
+                  <!-- <Card title="Conferencias en línea"
+                    link="conferencias_linea"
+                    price="699"
+                    image="Imagen_conferencias_en_linea.jpg"
+                    height="lg" /> -->
+                </div>
+                <!-- <div>&nbsp;</div> -->
+                <div>
+                  <img src="../assets/img/imagen_cursos_en_linea.jpg" alt="Cursos en línea">
+                </div>
+                <!-- <div>&nbsp;</div> -->
+                <div>
+                  <img src="../assets/img/Imagen_Documentales.jpg" alt="Documentales">
+                </div>
+                <!-- <div>&nbsp;</div> -->
+                <div>
+                  <img src="../assets/img/Imagen_conferencias_presenciales.jpg" alt="Conferencias presenciales" >
+                </div>
+                <!-- <div>&nbsp;</div> -->
+              </div>
+              <!-- <div class="lt-grid-container">
                 <div style="grid-column-start: 1; grid-row-start: 1; ">
                   <Card title="Conferencias en línea"
                     link="conferencias_linea"
@@ -136,7 +159,7 @@
                     image="Imagen_conferencias_presenciales.jpg"
                     height="lg"/>
                 </div>
-              </div>
+              </div> -->
             </b-col>
           </b-row>
       </b-col>
@@ -194,6 +217,70 @@ export default{
 </script>
 
 <style>
+#catalogo-grid
+{
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: repeat(5, 20%); 
+  grid-gap: 3px;
+  overflow: hidden;
+}
+
+#catalogo-grid div
+{
+  position: relative;
+  width: 100%;
+}
+
+#catalogo-grid div img
+{
+  margin: 0;
+  width: inherit;
+}
+
+#catalogo-grid div:first-child
+{
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 4;
+}
+
+#catalogo-grid div:nth-of-type(2)
+{
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+
+#catalogo-grid div:nth-of-type(3)
+{
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 3;
+  grid-row-end: 4;
+}
+
+#catalogo-grid div:nth-of-type(2) img,
+#catalogo-grid div:nth-of-type(3) img
+{
+  height: 216px;
+}
+
+#catalogo-grid div:nth-of-type(1) img,
+#catalogo-grid div:nth-of-type(4) img
+{
+  height: 530px;
+}
+
+#catalogo-grid div:nth-of-type(4)
+{
+  grid-column-start: 4;
+  grid-column-end: 6;
+  grid-row-start: 1;
+  grid-row-end: 4;
+}
 
 #redesSociales{
   list-style: none;
@@ -239,23 +326,4 @@ export default{
     height: 600px;
   }
 
-.lt-grid-container {
-  margin: 0 auto;
-  display: grid;
-  grid-gap: 10px 15px;
-  grid-template-columns: 37.695% 22.45% 2.16% 18.847% 18.847%;
-  /* grid-template-columns: 509px 312px 30px 509px; */
-  grid-template-rows: 271px 271px;
-  grid-template-areas: ". . . . ." ". . . . .";
-}
-
-
-@media all and (-ms-high-contrast:none) {
-  .lt-grid-container {
-    display: -ms-grid;
-    -ms-grid-columns: 40% 5% 5% 10% 40%;
-    -ms-grid-rows: 1fr 1fr;
-  }
-
-}
 </style>

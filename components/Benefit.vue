@@ -3,7 +3,7 @@
     <div class="red_list_item">
 
         <div class="emblem">
-          <fa :icon="`${icon}`" />
+          <font-awesome-icon :icon="`${icon}`" />
         </div> 
 
         <h5>{{text}}</h5>
@@ -14,10 +14,10 @@
 </template>
 
 <script>
-import { FontAwesomeIcon } from '@fontawesome/vue-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 export default {
-  components: { FontAwesomeIcon },
+  components: {FontAwesomeIcon},
   props: ['text', 'description', 'icon']
 }
 </script>
