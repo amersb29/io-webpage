@@ -1,0 +1,32 @@
+mutation(
+    $firstName: String!
+    $lastName:  String!
+    $email:     String!
+    $password:  String!
+    $mem_id:    Int
+    $country_id: Int
+    $state: Int!
+    $roles: [ID!]
+){
+    res: createUser( input: {
+        first_name: $firstName
+        last_name:  $lastName
+        email:      $email
+        password:   $password
+        memberships_id: $mem_id
+        countries_id: $country_id
+        state: $state
+        roles: { sync: $roles }
+    }){
+        id
+        first_name
+        last_name
+        state
+        membership {
+            name
+        }
+        roles{
+           name
+        }
+    }
+}

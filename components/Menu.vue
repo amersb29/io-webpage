@@ -23,12 +23,20 @@
         <b-nav >
           <b-nav-item class="shopping-cart"><font-awesome-icon icon="shopping-cart"/><span>(0)</span></b-nav-item>
           <b-nav-item>
-            <a @click.prevent="showModal()" href="#">Iniciar Sesi&oacute;n</a>
+            <a @click.prevent="showModal('signIn')" href="#">
+              Iniciar Sesi&oacute;n
+            </a>
           </b-nav-item>
-          <b-nav-item><span class="btn-rojo">Reg&iacute;strate</span></b-nav-item>
+          <b-nav-item>
+            <span class="btn-rojo" @click="showModal('signUp')">
+              Reg&iacute;strate
+            </span>
+          </b-nav-item>
         </b-nav>
       </div>
 
+      <AuthForm mode="signIn"/>
+      <AuthForm mode="signUp"/>
 
     </div>
     <div id="lateral-menu">
@@ -50,64 +58,23 @@
         </template>
         </ApolloQuery>
     </div>
-    <b-modal id="login" title="Iniciar de sesión" size="lg" hide-header hide-footer class="centerContentColum">
-      <div>
-        <!-- <img src="~/assets/img/imagen-entrar.jpg" style="width: 100%"/> -->
-      </div>
-      <h5>Inicia sesi&oacute;n para disfrutar de nuestros cursos.</h5>
-      <b-form>
-        <b-form-group id="exampleInputGroup1"
-                    label="Correo electrónico:"
-                    label-for="correo">
-            <b-form-input id="email" type="email" placeholder="Ingresa Correo electrónico" required/>
-        </b-form-group>
-        <b-form-group id="exampleInputGroup1"
-                    label="Correo electrónico:"
-                    label-for="contrasenia">
-            <b-form-input id="contrasenia" type="password" placeholder="Contraseña" required/>
-        </b-form-group>
-        <b-button type="submit" variant="danger">Enviar</b-button>
-        <div>
-          <a href="#" class="txtRed">OLVIDÉ MI CONTRASEÑA</a>
-        </div>
-      </b-form>
-    </b-modal>
-    <!-- <b-modal id="login" title="Iniciar de sesión" size="lg" hide-header hide-footer class="centerContentColum">
-      <div class="centerContentRow">
-        <div style="background-color: #f90; height: auto;">
-          <img src="~/assets/img/imagen-registro.jpg" width="100%" height="100%"/>
-        </div>
-        <div>
-          <div>
-            <img src="~/assets/img/logo_io_ventanas.png" />
-          </div>
-          <h5>Regístrate gratis para disfrutar de nuestros cursos.</h5>
-          <b-form>
-            <b-form-input id="nombre" type="text" placeholder="Ingrese su Nombre" required/>
-            <b-form-input id="correo" type="email" placeholder="Ingrese su Correo" required/>
-            <b-form-input id="pwdSignup" type="password" placeholder="Ingrese Contraseña" required/>
-            <b-form-input id="telefono" type="text" placeholder="Teléfono" required/>
-
-            <b-button type="submit" variant="danger">Crear Cuenta</b-button>
-          </b-form>
-        </div>
-      </div>
-    </b-modal> -->
   </section>
 </template>
 
 <script>
-import Logo from '@/components/Logo.vue'
+import Logo from '@/components/Logo'
+import AuthForm from './auth/AuthForm'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 export default{
-  components: {Logo, FontAwesomeIcon},
+  components: {Logo, FontAwesomeIcon, AuthForm},
   methods: {
     cambiarSede( id ){
       this.$store.commit('updateCampusId', id)
     },
-    showModal () {
-      this.$root.$emit('bv::show::modal', 'login')
+    showModal (mode) {
+      this.$store.commit('changeAuthMode', mode)
+      this.$root.$emit('bv::show::modal', mode)
     },
     sedeClassObj( sedeId ) {
       return { selected: +sedeId === +this.campusId }

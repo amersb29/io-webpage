@@ -6,6 +6,7 @@
                 <h2 class="txtRed">Pr&oacute;ximos Cursos</h2>
                 <span>Selecciona una Sede</span>
                 <div class="margin-top-20">
+                    <!-- TODO Cambiar por el componente CountriesSelect -->
                     <ApolloQuery :query="require(`@/graphql/queries/Countries.gql`)">
                         <template v-slot="{ result: { loading, error, data } }">
                             <!-- <div v-if="loading" class="loading apollo">Loading...</div> -->

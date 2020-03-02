@@ -1,11 +1,15 @@
-import gql from 'graphql-tag'
+import country from '../graphql/queries/Country.gql'
 
 export const state = () => ({
+    authMode: 'signIn',
     campusId: 1, //México
-    campusCode: null
+    campusCode: null,
 })
 
 export const mutations = {
+    changeAuthMode(state, newMode){
+      state.authMode = newMode
+    },
     changeCampus(state, {id, code}){
         state.campusCode = code
         state.campusId = id
@@ -16,21 +20,16 @@ export const mutations = {
 }
 
 export const getters = {
-    campusId: state => state.campusId 
+    campusId: state => state.campusId,
+    isSignIn: state => state.authMode === 'signIn', 
+    isSignUp: state => state.authMode === 'signUp', 
 }
 
 export const actions = {
     async queryCampus({commit, getters}){
         const apollo_client = this.app.apolloProvider.defaultClient
         const res = await apollo_client.query({
-            query: gql`
-              query($id: ID!){
-                country(id: $id ){
-                  id
-                  code
-                }
-              }
-            `,
+            query: country,
             variables: {
               id: getters.campusId
             }
@@ -39,5 +38,5 @@ export const actions = {
         if(res.data.country){
             commit('changeCampus', {id: +res.data.country.id, code: res.data.country.code} )
         }
-    }
+    },
 }
