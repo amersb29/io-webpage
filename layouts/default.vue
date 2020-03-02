@@ -8,7 +8,7 @@
 
 <script>
 import Menu from '~/components/Menu.vue'
-import Footer from '~/components/Footer.vue'
+import Footer from '~/components/footer/Footer.vue'
 
 export default {
   components: {Footer, Menu}

@@ -11,7 +11,8 @@
                     v-for="listItem in listItems" 
                     :key="listItem.text" 
                     :icon="listItem.icon" 
-                    :text="listItem.text"/>
+                    :text="listItem.text"
+                    :applyPadding="listItem.applyPadding"/>
     </div>
 </template>
 
@@ -21,7 +22,7 @@ import FooterListItem from './FooterListItem'
 export default {
     props: {
         listTitle: { type: String, default: '' },
-        listItems: { type: Array, default: [] },
+        listItems: { type: Array, default: () => [] },
         isUlList: { type: Boolean, default: false }
     },
     components: {FooterListItem}

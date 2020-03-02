@@ -1,7 +1,5 @@
 <template lang="html">
   <div class="card graySection" :style="{ backgroundImage: 'url(' + cardBackground + ')', backgroundRepeat: 'no-repeat'}">
-    <!-- <img class="card-img-top" :src="image" alt="Card image cap" style="'width: ' + imgWidth"> -->
-    <!-- <div :style="{display: 'block', width: '100%', height: cardHeight, backgroundImage: 'url(' +cardBackground+ ')', backgroundRepeat: 'no-repeat'}"> -->
     <div class="infoContainer" :style="[cardStyle, {  height: cardHeight } ]">
       <div class="card-body alignItemsAtCenter alignItemsToRight" >
         <h6>{{title}}</h6>
