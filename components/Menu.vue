@@ -19,26 +19,36 @@
         <b-nav-item href="https://televisionobjetiva.com/">TelevisionObjetiva</b-nav-item>
 
       </b-nav>
-      <div id="secondMenu">
-        <b-nav >
+
+      <AuthForm mode="signIn"/>
+      <AuthForm mode="signUp"/>
+
+    </div>
+
+    <div id="secondMenu">
+        <b-nav>
           <b-nav-item class="shopping-cart"><font-awesome-icon icon="shopping-cart"/><span>(0)</span></b-nav-item>
-          <b-nav-item>
+          <b-nav-item v-show="isLogin">
+            Hola <b>Amer</b>
+          </b-nav-item>
+          <b-nav-item v-show="isLogin">
+            <b-button variant="danger" @click="signOut">
+              Cerrar Sesión
+            </b-button>
+          </b-nav-item>
+          <b-nav-item v-show="!isLogin">
             <a @click.prevent="showModal('signIn')" href="#">
               Iniciar Sesi&oacute;n
             </a>
           </b-nav-item>
-          <b-nav-item>
+          <b-nav-item v-show="!isLogin">
             <span class="btn-rojo" @click="showModal('signUp')">
               Reg&iacute;strate
             </span>
           </b-nav-item>
         </b-nav>
       </div>
-
-      <AuthForm mode="signIn"/>
-      <AuthForm mode="signUp"/>
-
-    </div>
+      
     <div id="lateral-menu">
       <span>
         ELIGE TU CIUDAD >
@@ -78,12 +88,18 @@ export default{
     },
     sedeClassObj( sedeId ) {
       return { selected: +sedeId === +this.campusId }
+    },
+    signOut() {
+      this.$store.commit('changeAccessToken', null)
     }
   },
   computed: {
     campusId() {
       return this.$store.getters.campusId
     },
+    isLogin() {
+      return this.$store.getters.access_token !== null
+    }
   }
 }
 </script>
@@ -98,6 +114,10 @@ export default{
 }
 
 #secondMenu{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 180px;
    position: absolute;
    right: 15px;
    top: 40px;
@@ -160,5 +180,4 @@ export default{
   padding: 0.5rem .7rem !important;
   text-decoration: none;
 }
-
 </style>

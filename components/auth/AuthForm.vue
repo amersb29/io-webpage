@@ -1,6 +1,6 @@
 <template>
   <b-modal :id="mode" title="Inteligencia Objetiva" size="lg" hide-footer class="centerContentColum">
-    <b-form @submit.prevent="sendFormInfo" class="flexForm">
+    <b-form @submit.prevent="sendFormInfo" class="flexForm" v-show="!signUpSuccess">
       <b-form-group id="first_name"
                   label="Nombre:"
                   label-for="firstName"
@@ -41,18 +41,32 @@
         <b-button @click="forgotPswd" v-show="isSignIn">OLVIDÉ MI CONTRASEÑA</b-button>
       </div>
     </b-form>
+    <div v-if="signUpSuccess" class="suSuccess">
+      <h1>
+        ¡Tu registro ha sido exitoso!
+      </h1> 
+      <p>
+        Por razones de seguridad tu usuario se encuentra <span>inactivo</span>.
+      </p>
+      <p>
+        Te hemos enviado un correo electrónico a <b>{{user.email}}</b> con las instrucciones que deberás realizar para activar tu cuenta.
+      </p>
+      <button @click="closeModal('signUp')" variant="danger">Cerrar</button>
+    </div>
   </b-modal>
 </template>
 
 <script>
 import CountriesSelect from '../CountriesSelect'
 import SignUp from '../../graphql/mutations/SignUp.gql'
+import SignIn from '../../graphql/mutations/SignIn.gql'
 
 export default{
   components: {CountriesSelect},
   data() {
     return {
       password: '',
+      signUpSuccess: false,
       user: {
         firstName: '',
         lastName:  '',
@@ -87,6 +101,9 @@ export default{
     },
   },
   methods: {
+    closeModal(mode) {
+      this.$bvModal.hide(mode)
+    },
     forgotPswd() {
       this.$store.commit('changeAuthMode', 'restorePwd')
     },
@@ -107,12 +124,21 @@ export default{
           break
       }
     },
-    signIn() {
+    async signIn() {
       console.log('Sign In')
+      const {email: username, password} = this.user
+      const res = await this.executeMutation(SignIn, {username, password})
+      
+      this.$store.commit('changeAccessToken', res.access_token)
+      this.closeModal('signIn')
     },
     async signUp() {
       console.log('Sign Up')
       const res = await this.executeMutation(SignUp, this.user)
+      
+      if(res.id){
+        this.signUpSuccess = true
+      }
     },
     async executeMutation(mutation, variables) {
       const op = await this.$apollo.mutate({
@@ -148,4 +174,20 @@ export default{
   .form-group {
     flex: 0 45%;
   }
+  .suSuccess h1{
+    text-align: center;
+  }
+  .suSuccess p {
+    margin: 15px 50px !important;
+  }
+
+  .suSuccess p:first-of-type {
+    margin-top: 20px !important;
+  }
+  
+.suSuccess p span {
+    color: #dc3545;
+    text-decoration: underline;
+  }
+  
 </style>

@@ -1,0 +1,17 @@
+mutation ( $username: String!
+           $password: String!
+){
+  res: login( input: {
+    username: $username,
+    password: $password
+  }) {
+    access_token
+    expires_in
+    token_type
+    user {
+      id
+      email
+      first_name
+    }
+  }
+}
