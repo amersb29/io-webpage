@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import Menu from '~/components/Menu.vue'
+import Menu from '~/components/menus/Menu.vue'
 import Footer from '~/components/footer/Footer.vue'
 
 export default {
@@ -15,6 +15,8 @@ export default {
 }
 </script>
 <style>
+@import 'sweetalert2/dist/sweetalert2.min.css';
+
 html {
   font-family:   -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
   font-size: 16px;

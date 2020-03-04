@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import Catalogo from '~/components/Catalogo.vue'
+import Catalogo from '~/components/catalogos/Catalogo.vue'
 import PreguntasFrecuentes from '~/components/PreguntasFrecuentes.vue'
 
 export default {

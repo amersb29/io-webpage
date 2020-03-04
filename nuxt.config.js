@@ -47,6 +47,8 @@ module.exports = {
     'bootstrap-vue/nuxt',
     //Apollo
     '@nuxtjs/apollo',
+    //swal
+    'nuxt-sweetalert2',
     //Font Awesome
     ['nuxt-fontawesome', {
       imports: [
@@ -106,7 +108,7 @@ module.exports = {
   clientConfigs: {
     default: {
       // required  
-      httpEndpoint: 'http://membresias-io.test/graphql',
+      httpEndpoint: 'http://rest-io.test/graphql',
       // optional
       // See https://www.apollographql.com/docs/link/links/http.html#options
       // httpLinkOptions: {
@@ -144,15 +146,6 @@ module.exports = {
       if(ctx.isDev) {
         config.devtool = ctx.isClient ? 'source-map' : 'inline-source-map'
       }
-      // Run ESLint on save
-      // if (ctx.isDev && ctx.isClient) {
-        // config.module.rules.push({
-        //   enforce: 'pre',
-        //   test: /\.(js|vue)$/,
-        //   loader: 'eslint-loader',
-        //   exclude: /(node_modules)/
-        // })
-      // }
     }
   }
 }

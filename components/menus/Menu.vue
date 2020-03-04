@@ -27,14 +27,19 @@
 
     <div id="secondMenu">
         <b-nav>
-          <b-nav-item class="shopping-cart"><font-awesome-icon icon="shopping-cart"/><span>(0)</span></b-nav-item>
+          <b-nav-item class="shopping-cart">
+            <font-awesome-icon icon="shopping-cart"/>
+            <div class="cart-no-items">
+              <span>{{scSize}}</span>
+            </div>
+          </b-nav-item>
           <b-nav-item v-show="isLogin">
             Hola <b>Amer</b>
           </b-nav-item>
           <b-nav-item v-show="isLogin">
-            <b-button variant="danger" @click="signOut">
+            <span class="btn-rojo" @click="signOut">
               Cerrar Sesión
-            </b-button>
+            </span>
           </b-nav-item>
           <b-nav-item v-show="!isLogin">
             <a @click.prevent="showModal('signIn')" href="#">
@@ -53,31 +58,40 @@
       <span>
         ELIGE TU CIUDAD >
       </span>
-      <ApolloQuery :query="require(`@/graphql/queries/Sedes.gql`)">
+      <ApolloQuery :query="require(`@/graphql/queries/Sedes.gql`)" :skip="skipQuery">
         <template v-slot="{ result: { loading, error, data } }">
-            <!-- <div v-if="loading" class="loading apollo">Loading...</div> -->
+            <div v-if="loading" class="loading apollo">Loading...</div>
             <div v-if="error" class="error apollo">An error occurred</div>
             <div v-else-if="data">
-              <ul>
+                <ul>
                 <li v-for="sede in data.sedes" :key="sede.id">
-                  <a :class="sedeClassObj(sede.id)" @click="cambiarSede(sede.id)">{{sede.name}}</a>
+                    <a :class="sedeClassObj(sede.id)" @click="cambiarSede(sede.id)">{{sede.name}}</a>
                 </li>
-              </ul>
+                </ul>
             </div>
             <div v-else class="no-result apollo">No result :(</div>
         </template>
-        </ApolloQuery>
+    </ApolloQuery>
     </div>
   </section>
 </template>
 
 <script>
+import gql from 'graphql-tag'
 import Logo from '@/components/Logo'
-import AuthForm from './auth/AuthForm'
+import AuthForm from '../auth/AuthForm'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 export default{
   components: {Logo, FontAwesomeIcon, AuthForm},
+  data(){
+    return {
+      skipQuery: true
+    }
+  },
+  mounted(){
+    this.skipQuery = false
+  },
   methods: {
     cambiarSede( id ){
       this.$store.commit('updateCampusId', id)
@@ -99,6 +113,9 @@ export default{
     },
     isLogin() {
       return this.$store.getters.access_token !== null
+    },
+    scSize() {
+      return this.$store.getters.shoppingCartSize
     }
   }
 }
@@ -169,11 +186,26 @@ export default{
 }
 
 .fa-shopping-cart{
-  margin-right: 5px;
+  margin: 0 10px;
 }
-.shopping-cart{
-  display: block;
-  margin-left: 60px;
+.shopping-cart .nav-link{
+  display: flex;
+  align-items: center;
+  width: 100px;
+}
+.cart-no-items {
+  align-items: center;
+  border: 2px solid #dc3545;
+  border-radius: 50%;
+  color: #dc3545;
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  font-size: 1.1em;
+  height: 30px;
+  justify-content: center;
+  text-align: center;
+  width: 30px;
 }
 .nav-link, .nav-link a {
   color: black !important;
