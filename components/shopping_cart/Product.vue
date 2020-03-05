@@ -50,7 +50,8 @@ export default {
             image: null,
             name: null,
             counter: 0,
-            price: 0
+            price: 0,
+            type: 'video'
         }
     },
     props: {
@@ -60,19 +61,21 @@ export default {
         }
     },
     methods: {
-        assignData({id, name, image, counter, price}) {
+        assignData({id, name, image, counter, price, type}) {
             this.id = id
             this.name = name
             this.image = image
             this.counter = counter
             this.price = price
+            this.type = type
         },
         incrementCounter() {
             const {id, counter} = this 
-            this.$store.dispatch('incrementCounter', {id, counter})
+            this.$store.dispatch('incrementCounter', {id, type, counter})
         },
         removeProduct() {
-            this.$store.dispatch('removeProduct', this.$store.getters.shoppingCart.find(p => p.id === this.id).id)
+            const {id, type} = this.$store.getters.shoppingCart.find(p => p.id === this.id && p.type === this.type)
+            this.$store.dispatch('removeProduct', {id, type})
         }
     },
     computed: {

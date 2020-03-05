@@ -19,7 +19,7 @@
                     <b-col cols="3">Total</b-col>
                 </b-row>
                 <Product v-for="product in products"
-                        :key="product.id"
+                        :key="product.name"
                         :data="product"/>
             </b-col>
             <b-col>
@@ -73,6 +73,9 @@ export default {
 </script>
 
 <style>
+#shopping-cart-container {
+     min-height: 500px;
+}
 #shopping-cart-container .row:not(:first-of-type) {
     margin-top: 20px;
 }
@@ -102,7 +105,7 @@ export default {
 }
 .cart-payment-total {
     color: #D63D37;
-    font-size: 2em;
+    font-size: 1.3em;
     font-weight: 600;
     height: 40%;
     padding-top: 20px;

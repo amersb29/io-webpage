@@ -22,8 +22,11 @@
 </template>
 
 <script>
+import SweetAlertMixin from '../../mixins/SweetAlertMixin'
+
 export default {
     name: 'info-curso',
+    mixins: [SweetAlertMixin],
     props: {
         curso: { type: Object, default: undefined },
     },
@@ -38,14 +41,7 @@ export default {
     methods: {
       addToCart(curso) {
         this.$store.dispatch('addProduct', curso)
-        const toast = this.$swal.mixin({
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true
-        })
-        toast.fire('El producto ha sido agregado al carrito', '', 'success')
+        this.printToastMsg('El producto ha sido agregado al carrito', 'success')
       },
       image( image ){
         return this.$getImage(image)

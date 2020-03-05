@@ -11,7 +11,9 @@ export const state = () => ({
 export const mutations = {
 
     updateCart(state, cart) {
-        state.shoppingCart = cart
+        state.shoppingCart = cart.sort((a, b) => {
+            return a.type < b.type ? -1 : 1 
+        })
     },
     changeAccessToken(state, newToken){
         state.access_token = newToken
@@ -52,26 +54,28 @@ export const actions = {
             commit('changeCampus', {id: +res.data.country.id, code: res.data.country.code} )
         }
     },
-    addProduct({commit, state}, {id, name, image, tipoProducto: { price }}) {
+    addProduct({commit, state}, {id, name, image, tipoProducto: { price }, type = 'video'}) {
         const sc = [...state.shoppingCart]
-        const prodIdx = sc.findIndex(product => product.id === id)
+        const prodIdx = sc.findIndex(product => product.id === id && product.type === type)
         
         if(prodIdx !== -1) {
             const prod = {...state.shoppingCart[prodIdx]}
             sc.splice(prodIdx, 1, {...prod, counter: ++prod.counter})
         } else {
-            sc.push({id, name, image, price, counter: 1})
+            sc.push({id, name, image, price, type, counter: 1})
         }
 
         commit('updateCart', sc)
     },
-    removeProduct({commit, state}, id) {
-        const sc = state.shoppingCart.filter(product => product.id !== id)
-        commit('updateCart', sc)
+    removeProduct({commit, state}, {id, type}) {
+        const filterByTypeNotMatch = state.shoppingCart.filter(p => p.type !== type )
+        const filterByTypeMatch = state.shoppingCart.filter(p => p.type === type ).filter(p => p.id !== id)
+
+        commit('updateCart', [...filterByTypeMatch, ...filterByTypeNotMatch])
     },
-    incrementCounter({commit, getters}, {id, counter}) {
+    incrementCounter({commit, getters}, {id, type, counter}) {
         const sc = [...getters.shoppingCart]
-        const prodIdx = sc.findIndex(product => product.id === id)
+        const prodIdx = sc.findIndex(product => product.id === id && product.type === type)
         sc.splice(prodIdx, 1, {...{...sc[prodIdx]}, counter: counter})
         commit('updateCart', sc)
     },

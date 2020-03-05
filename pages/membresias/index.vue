@@ -23,16 +23,22 @@
             </template>
         </ApolloQuery> -->
         <div class="col-md-6 centerContentColum">
-          <Membresia type="PREMIUM"
-                     price="1,249.00"
-                     currency="MXN"
-                     :benefits="beneficiosPremium"/>
+          <Membresia
+                    id="1" 
+                    image="imagen-membresia-premium.png"
+                    type="PREMIUM"
+                    price="1249"
+                    currency="MXN"
+                    :benefits="beneficiosPremium"/>
         </div>
         <div class="col-md-6 centerContentColum">
-          <Membresia type="PLATINUM"
-                     price="2,499.00"
-                     currency="MXN"
-                     :benefits="beneficiosPlatinum"/>
+          <Membresia
+                    id="2" 
+                    image="imagen-membresia-platinum.png"
+                    type="PLATINUM"
+                    price="2499"
+                    currency="MXN"
+                    :benefits="beneficiosPlatinum"/>
         </div>
       </div>
       <div class="row justify-content-center margin-top-100">
@@ -160,7 +166,7 @@ a nuestra membresía PLATINUM.
 
 <script>
 import Benefit from '~/components/Benefit.vue'
-import Membresia from '~/components/Membresia.vue'
+import Membresia from '~/components/membresias/Membresia.vue'
 import Loader from '@/components/Loader'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
