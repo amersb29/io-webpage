@@ -42,7 +42,9 @@ module.exports = {
   /*
   ** Nuxt.js modules
   */
-  modules: [,
+  modules: [
+    //DotEnv
+    '@nuxtjs/dotenv',
     // Doc: https://bootstrap-vue.js.org/docs/
     'bootstrap-vue/nuxt',
     //Apollo
@@ -63,6 +65,11 @@ module.exports = {
      ]
     }],
   ],
+
+  dotenv: {
+    path: './env/',
+    filename: '.env.dev'
+  },
 
  // Give apollo module options
  apollo: {

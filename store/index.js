@@ -35,6 +35,7 @@ export const getters = {
     isSignUp: state => state.authMode === 'signUp',
     shoppingCart: state => state.shoppingCart,
     shoppingCartSize: state => state.shoppingCart.length ? state.shoppingCart.reduce((a,b) => a + b.counter, 0) : 0,
+    shoppingCartTotal: state => state.shoppingCart.length ? state.shoppingCart.reduce((a,b) => a + (b.counter * b.price), 0) : 0,
 }
 
 export const actions = {
@@ -51,7 +52,7 @@ export const actions = {
             commit('changeCampus', {id: +res.data.country.id, code: res.data.country.code} )
         }
     },
-    addProduct({commit, state}, {id, name, image}) {
+    addProduct({commit, state}, {id, name, image, tipoProducto: { price }}) {
         const sc = [...state.shoppingCart]
         const prodIdx = sc.findIndex(product => product.id === id)
         
@@ -59,13 +60,19 @@ export const actions = {
             const prod = {...state.shoppingCart[prodIdx]}
             sc.splice(prodIdx, 1, {...prod, counter: ++prod.counter})
         } else {
-            sc.push({id, name, image, counter: 1})
+            sc.push({id, name, image, price, counter: 1})
         }
 
         commit('updateCart', sc)
     },
-    removeProduct({commit, state}, idx) {
-        const sc = state.shoppingCart.filter(product => product.id !== idx)
+    removeProduct({commit, state}, id) {
+        const sc = state.shoppingCart.filter(product => product.id !== id)
         commit('updateCart', sc)
-    }
+    },
+    incrementCounter({commit, getters}, {id, counter}) {
+        const sc = [...getters.shoppingCart]
+        const prodIdx = sc.findIndex(product => product.id === id)
+        sc.splice(prodIdx, 1, {...{...sc[prodIdx]}, counter: counter})
+        commit('updateCart', sc)
+    },
 }

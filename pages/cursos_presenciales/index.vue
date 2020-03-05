@@ -40,7 +40,7 @@
                             <hooper class="presenciales" :infiniteScroll="true" :touchDrag="false" :centerMode="true"
                                     :autoPlay="true" :playSpeed="3500">
                                 <slide v-for="banner in data.sede.banners" :key="banner.id">
-                                    <img :src="`http://membresias-io.test/storage/images/${banner.image}`" 
+                                    <img :src="`${process.env.api_url}${process.env.storage_folder}${banner.image}`" 
                                             :alt="banner.image"/>
                                 </slide>
                                 <hooper-navigation slot="hooper-addons"></hooper-navigation>

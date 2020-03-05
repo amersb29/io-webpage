@@ -1,8 +1,18 @@
 <template>
     <div class="loader">
-        <img src="http://membresias-io.test/storage/images/brain.gif" alt="Loading..." width="30%">                        
+        <img :src="loader" alt="Loading..." width="30%">                        
     </div>
 </template>
+
+<script>
+export default {
+  computed: {
+    loader() {
+      return `${process.env.api_url}${process.env.storage_folder}brain.gif`
+    }
+  }
+}
+</script>
 
 <style>
 .loader {

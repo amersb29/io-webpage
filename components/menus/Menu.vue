@@ -27,7 +27,7 @@
 
     <div id="secondMenu">
         <b-nav>
-          <b-nav-item class="shopping-cart">
+          <b-nav-item class="shopping-cart" to="/shoppingCart">
             <font-awesome-icon icon="shopping-cart"/>
             <div class="cart-no-items">
               <span>{{scSize}}</span>

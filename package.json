@@ -27,11 +27,12 @@
     "accounting": "^0.4.1",
     "bootstrap": "^4.1.3",
     "bootstrap-vue": "^2.5.0",
+    "core-js": "^2.6.5",
     "cross-env": "^5.2.0",
     "graphql-tag": "^2.10.3",
     "hooper": "^0.3.4",
     "money": "^0.2.0",
-    "nuxt": "^2.0.0",
+    "nuxt": "^2.11.0",
     "nuxt-fontawesome": "^0.4.0",
     "nuxt-sweetalert2": "^1.0.0"
   },
