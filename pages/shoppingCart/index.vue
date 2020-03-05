@@ -5,7 +5,13 @@
                 <h1 class="txtRed">Detalles del Carrito</h1>
             </b-col>
         </b-row>
-        <b-row>
+        <b-row v-if="isCartEmpty">
+            <b-col>
+                <FontAwesomeIcon :icon="['fas','heart-broken']" class="txtRed" />
+                No hay productos en el carrito
+            </b-col>
+        </b-row>
+        <b-row v-else>
             <b-col cols="9">
                 <b-row class="cart-header">
                     <b-col cols="4">Producto</b-col>
@@ -42,8 +48,10 @@
 
 <script>
 import Product from '@/components/shopping_cart/Product'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
 export default {
-    components: {Product},
+    components: {Product, FontAwesomeIcon},
     data() {
         return {
             cupon: ''
@@ -55,6 +63,9 @@ export default {
         },
         total() {
             return this.$store.getters.shoppingCartTotal
+        },
+        isCartEmpty() {
+            return this.$store.getters.shoppingCartSize === 0
         }
     }
 
