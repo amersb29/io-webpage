@@ -70,7 +70,7 @@ export default {
             this.type = type
         },
         incrementCounter() {
-            const {id, counter} = this 
+            const {id, type, counter} = this 
             this.$store.dispatch('incrementCounter', {id, type, counter})
         },
         removeProduct() {

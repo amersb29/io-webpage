@@ -32,12 +32,17 @@
                         <span>{{total | currency}}</span>
                     </div>
                     <div class="cart-payment-cupon">
-                        <b-form-input id="input-1" v-model="cupon" trim placeholder="Introducir el cupón" size="sm"></b-form-input>
-                        <b-button variant="danger" size="sm">Aplicar</b-button>
+                        <div v-if="isCouponApplied" class="cupon-applied">
+                            Cupón aplicado
+                        </div>
+                        <b-form @submit.prevent="applyCoupon($event)" v-else>
+                            <b-form-input id="input-1" v-model="code" trim placeholder="Introducir el cupón" size="sm"></b-form-input>
+                            <b-button variant="danger" size="sm" type="submit">Aplicar</b-button>
+                        </b-form>
                     </div>
                     <div class="cart-payment-total">
                         <span>Total:</span>
-                        <span>{{total - 1000 | currency}}</span>
+                        <span>{{total - discount | currency}}</span>
                     </div>
                     <b-button variant="warning" >Pagar</b-button>
                 </div>
@@ -50,14 +55,19 @@
 import Product from '@/components/shopping_cart/Product'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
+import query from '@/graphql/queries/Cupon.gql'
+
 export default {
     components: {Product, FontAwesomeIcon},
     data() {
         return {
-            cupon: ''
+            code: ''
         }
     },
     computed: {
+        discount() {
+            return this.$store.getters.discount
+        },
         products() {
             return this.$store.getters.shoppingCart
         },
@@ -66,6 +76,29 @@ export default {
         },
         isCartEmpty() {
             return this.$store.getters.shoppingCartSize === 0
+        },
+        isCouponApplied() {
+            return this.$store.getters.discount !== 0
+        }
+    },
+    methods: {
+        applyCoupon( event ) {
+            const {code} = this 
+            this.$apollo.query({
+                query,
+                variables: { code }
+            })
+            .then( res => {
+                const {discount, expiration} = res.data.coupon
+                const now = new Date()
+                const exp = new Date(expiration)
+
+                if(now.getTime() < exp.getTime()) {
+                    this.$store.commit('updateDiscount', discount)
+                }
+                
+            })
+            .catch( error => console.log(error))
         }
     }
 
@@ -128,7 +161,11 @@ export default {
 }
 .cart-payment-cupon {
     display: flex;
+    text-align: center;
     width: 100%;
+}
+.cart-payment-cupon form {
+    display: flex;
 }
 .cart-payment-cupon input {
     border-top-right-radius: 0;
@@ -139,5 +176,8 @@ export default {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
 }
-
+.cupon-applied {
+    height: 31px;
+    width: inherit;
+}
 </style>

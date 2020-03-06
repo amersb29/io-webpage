@@ -5,7 +5,8 @@ export const state = () => ({
     authMode: 'signIn',
     campusId: 1, //México
     campusCode: null,
-    shoppingCart: []
+    shoppingCart: [],
+    discount: 0
 })
 
 export const mutations = {
@@ -27,12 +28,16 @@ export const mutations = {
     },
     updateCampusId(state, id){
         state.campusId = id
+    },
+    updateDiscount(state, discount){
+        state.discount = discount
     }
 }
 
 export const getters = {
     access_token: state => state.access_token,
     campusId: state => state.campusId,
+    discount: state => state.discount,
     isSignIn: state => state.authMode === 'signIn', 
     isSignUp: state => state.authMode === 'signUp',
     shoppingCart: state => state.shoppingCart,

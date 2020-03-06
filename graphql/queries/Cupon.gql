@@ -1,0 +1,7 @@
+query ($code: String!) {
+    coupon(code: $code) {
+        code
+        discount
+        expiration
+    }
+}
