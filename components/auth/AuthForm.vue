@@ -5,13 +5,28 @@
                   label="Nombre:"
                   label-for="firstName"
                   v-show="isSignUp">
-          <b-form-input id="firstName" name="first_name" type="text" v-model="user.firstName"/>
+          <b-form-input id="firstName" 
+                        name="first_name" 
+                        type="text" 
+                        v-model="user.firstName"
+                        required/>
       </b-form-group>
       <b-form-group id="last_name"
                   label="Apellido(s):"
                   label-for="lastName"
+                  v-show="isSignUp"
+                  required>
+          <b-form-input id="lastName" 
+                        name="last_name" 
+                        type="text" 
+                        v-model="user.lastName"
+                        required/>
+      </b-form-group>
+      <b-form-group id="country"
+                  label="País de orígen:"
+                  label-for="country_id"
                   v-show="isSignUp">
-          <b-form-input id="lastName" name="last_name" type="text" v-model="user.lastName"/>
+          <CountriesSelect name="country_id" onlyCountries v-model="user.country_id"/>
       </b-form-group>
       <b-form-group id="username"
                   label="Correo electrónico:"
@@ -22,23 +37,38 @@
                   label="Contraseña:"
                   label-for="contrasenia"
                   v-show="isSignIn || isSignUp">
-          <b-form-input name="password" type="password" required v-model="user.password"/>
+          <b-form-input name="password" 
+                        type="password" 
+                        required 
+                        v-model="user.password"
+                        :state='passwordValidation.valid'/>
       </b-form-group>
       <b-form-group id="password_2"
                   label="Reescribe la Contraseña:"
                   label-for="contrasenia_2"
                   v-show="isSignUp">
-          <b-form-input id="contrasenia_2" type="password" v-model="password"/>
+          <b-form-input id="contrasenia_2" 
+                        type="password" 
+                        v-model.lazy='checkPassword'
+                        :state="passwordValidation.valid"/>
       </b-form-group>
-      <b-form-group id="country"
-                  label="País de orígen:"
-                  label-for="country_id"
-                  v-show="isSignUp">
-          <CountriesSelect name="country_id" onlyCountries v-model="user.country_id"/>
-      </b-form-group>
+      
+      <div :style="{display: passwordValidation.valid ? 'none' : 'block'}">
+        <transition name="hint" appear>
+          <div v-if='passwordValidation.errors.length > 0' class='hints'>
+            <ul>
+              <li v-for='(error, index) in passwordValidation.errors' :key="index">{{error}}</li>
+            </ul>
+          </div>
+        </transition>
+      </div>
+
       <div class="auth-button-container">
-        <b-button type="submit" variant="danger">{{formButtonTxt}}</b-button>
-        <b-button @click="forgotPswd" v-show="isSignIn">OLVIDÉ MI CONTRASEÑA</b-button>
+        <div>
+          <b-button type="submit" variant="danger" :disabled="!validForm">{{formButtonTxt}}</b-button>
+          <b-button @click="forgotPswd" v-show="isSignIn">OLVIDÉ MI CONTRASEÑA</b-button>
+        </div>
+        <div class="without-account" v-show="isSignIn">No tengo cuenta y <a @click="openSignUp">Quiero Registrarme</a></div>
       </div>
     </b-form>
     <div v-if="signUpSuccess" class="suSuccess">
@@ -65,18 +95,25 @@ export default{
   components: {CountriesSelect},
   data() {
     return {
-      password: '',
+      checkPassword: null,
       signUpSuccess: false,
       user: {
-        firstName: '',
-        lastName:  '',
-        email:     '',
-        password:  '',
+        firstName: null,
+        lastName:  null,
+        email:     null,
+        password:  null,
         mem_id:    0,   // Sin membresía
         country_id: 1,  // México
         state: 0,       // Inactivo
         roles: [4]      // Consumidor 
       },
+      pwdValidationError: {valid: false, errors: []},
+      rules: [
+				{ message:'One lowercase letter required.', regex:/[a-z]+/ },
+				{ message:"One uppercase letter required.",  regex:/[A-Z]+/ },
+				{ message:"8 characters minimum.", regex:/.{8,}/ },
+				{ message:"One number required.", regex:/[0-9]+/ }
+			],
     }
   },
   props: {
@@ -99,6 +136,30 @@ export default{
     isSignIn() {
       return this.$store.getters.isSignIn
     },
+    notSamePasswords () {
+				return this.user.password !== this.checkPassword
+    },
+    passwordValidation() {
+			let errors = []
+			for (let condition of this.rules) {
+				if (!condition.regex.test(this.user.password)) {
+					errors.push(condition.message)
+				}
+      }
+
+      if(this.notSamePasswords) {
+        errors.push('Passwords don\'t match.')
+      }
+
+			if (errors.length === 0) {
+				return { valid:true, errors }
+      } else {
+				return { valid:false, errors }
+			}
+    },
+    validForm() {
+      return this.passwordValidation.valid && this.user.email && this.user.firstName && this.user.lastName
+    }
   },
   methods: {
     closeModal(mode) {
@@ -106,6 +167,9 @@ export default{
     },
     forgotPswd() {
       this.$store.commit('changeAuthMode', 'restorePwd')
+    },
+    openSignUp() {
+      this.$store.commit('changeAuthMode', 'signUp')
     },
     restorePwd() {
       console.log('Restore Password');
@@ -157,8 +221,9 @@ export default{
   {
     align-items: center;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
+    width: 100%;
+    padding-left: 1.6em;
   }
 
   .auth-button-container button {
@@ -189,5 +254,18 @@ export default{
     color: #dc3545;
     text-decoration: underline;
   }
-  
+.without-account {
+  font-weight: 600;
+}
+.without-account a, .without-account a:hover{
+  color: #dc3545;
+  text-decoration: none;
+}
+.without-account a:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+.hints ul li {
+  color: red;
+}
 </style>

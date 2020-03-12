@@ -40,7 +40,7 @@
                             <hooper class="presenciales" :infiniteScroll="true" :touchDrag="false" :centerMode="true"
                                     :autoPlay="true" :playSpeed="3500">
                                 <slide v-for="banner in data.sede.banners" :key="banner.id">
-                                    <img :src="`${process.env.api_url}${process.env.storage_folder}${banner.image}`" 
+                                    <img :src="getImage(banner.image)" 
                                             :alt="banner.image"/>
                                 </slide>
                                 <hooper-navigation slot="hooper-addons"></hooper-navigation>
@@ -69,6 +69,11 @@ export default {
     components: {Hooper, Slide, HooperNavigation, Loader},
     data() {
         return {
+        }
+    },
+    methods: {
+        getImage(image) {
+            return `${process.env.api_url}${process.env.storage_folder}${image}`
         }
     },
     computed: {

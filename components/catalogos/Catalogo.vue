@@ -7,15 +7,12 @@
       <h1 class="txtRed">{{titulo}}</h1>
     </div>
     <ApolloQuery :query="require( `@/graphql/queries/Catalogo.gql` )"
-                 :variables="{ tipo_producto_id }">
+                :variables="{ tipo_producto_id }">
       <template v-slot="{ result: { loading, error, data } }">
-      <!-- Loading -->
-      <div v-if="loading" class="loading apollo">Loading...</div>
-
-      <!-- Error -->
+      <div v-if="loading" class="loading apollo">
+        <Loader/>
+      </div>
       <div v-else-if="error" class="error apollo">An error occurred</div>
-
-      <!-- Result -->
       <div v-else-if="data" >
         <div class="row margin-bottom-50">
           <div class="col-md-12 content-flex-wrap">
@@ -23,7 +20,6 @@
           </div>
         </div>
       </div>
-      <!-- No result -->
       <div v-else class="no-result apollo">No result :(</div>
       </template>
     </ApolloQuery>
@@ -32,9 +28,10 @@
 
 <script>
 import InfoCurso from './InfoCurso'
+import Loader from '../Loader'
 
 export default {
-  components: { InfoCurso },
+  components: { InfoCurso, Loader },
   mounted(){
     switch (+this.tipo_producto_id) {
       case 1:

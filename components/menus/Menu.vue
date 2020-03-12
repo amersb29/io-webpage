@@ -27,7 +27,7 @@
 
     <div id="secondMenu">
         <b-nav>
-          <b-nav-item class="shopping-cart" to="/shoppingCart">
+          <b-nav-item class="shopping-cart" @click.prevent="validateToken">
             <font-awesome-icon icon="shopping-cart"/>
             <div class="cart-no-items">
               <span>{{scSize}}</span>
@@ -83,13 +83,13 @@ import AuthForm from '../auth/AuthForm'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 export default{
-  components: {Logo, FontAwesomeIcon, AuthForm},
+  components: { Logo, FontAwesomeIcon, AuthForm },
   data(){
     return {
       skipQuery: true
     }
   },
-  mounted(){
+  mounted() {
     this.skipQuery = false
   },
   methods: {
@@ -105,6 +105,14 @@ export default{
     },
     signOut() {
       this.$store.commit('changeAccessToken', null)
+    },
+    validateToken() {
+      if(this.$store.getters.access_token) {
+        this.$router.replace({ path: 'shoppingCart' })
+      } else {
+        this.$store.commit('changeAuthMode', 'signIn')
+        this.$bvModal.show('signIn')
+      }
     }
   },
   computed: {
