@@ -1,17 +1,5 @@
 <template>
-    <div v-if="false" class="suSuccess">
-        <h1>
-            ¡Tu registro ha sido exitoso!
-        </h1> 
-        <p>
-            Por razones de seguridad tu usuario se encuentra <span>inactivo</span>.
-        </p>
-        <p>
-            Te hemos enviado un correo electrónico a <b>{{user.email}}</b> con las instrucciones que deberás realizar para activar tu cuenta.
-        </p>
-        <button @click="closeModal('signUp')" variant="danger">Cerrar</button>
-    </div>
-    <div v-else>
+    <div>
         <ValidationObserver v-slot="{ invalid }">
             <b-form @submit.prevent="signIn" class="flexForm">
                 <ValidationProvider
@@ -50,7 +38,7 @@
                 </ValidationProvider>
                 <div class="auth-button-container sign-in">
                     <div>
-                        <b-button type="submit" variant="danger" :disabled="invalid">{{formButtonTxt}}</b-button>
+                        <b-button type="submit" variant="danger" :disabled="invalid">Iniciar sesión</b-button>
                         <b-button @click="forgotPswd">OLVIDÉ MI CONTRASEÑA</b-button>
                     </div>
                     <div class="without-account">No tengo cuenta y <a @click="openSignUp">Quiero Registrarme</a></div>
@@ -75,16 +63,6 @@ export default {
                 password:  null,
             },
         }
-    },
-    computed: {
-        formButtonTxt() {
-            switch (this.$store.state.authMode) {
-                case 'restorePwd':
-                    return 'Restablecer mi contraseña'
-                default:
-                    return 'Iniciar Sesión'
-            } 
-        },
     },
     methods: {
         forgotPswd() {

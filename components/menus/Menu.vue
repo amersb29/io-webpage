@@ -22,6 +22,7 @@
 
       <AuthForm mode="signIn"/>
       <AuthForm mode="signUp"/>
+      <AuthForm mode="restorePwd"/>
 
     </div>
 

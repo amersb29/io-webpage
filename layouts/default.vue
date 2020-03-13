@@ -191,7 +191,8 @@ html {
   width: 100%;
   padding-left: 1.6em;
 }
-.sing-in {
+.sign-in {
+  flex-direction: column;
   justify-content: space-between;
 }
 .sign-up {
