@@ -34,7 +34,7 @@
             </div>
           </b-nav-item>
           <b-nav-item v-show="isLogin">
-            Hola <b>Amer</b>
+            Hola <b>{{userFirstName}}</b>
           </b-nav-item>
           <b-nav-item v-show="isLogin">
             <span class="btn-rojo" @click="signOut">
@@ -104,11 +104,12 @@ export default{
       return { selected: +sedeId === +this.campusId }
     },
     signOut() {
-      this.$store.commit('changeAccessToken', null)
+      this.$store.dispatch('removeToken')
+      this.$router.replace({ path: '/' })
     },
     validateToken() {
       if(this.$store.getters.access_token) {
-        this.$router.replace({ path: 'shoppingCart' })
+        this.$router.replace({ path: '/shoppingCart' })
       } else {
         this.$store.commit('changeAuthMode', 'signIn')
         this.$bvModal.show('signIn')
@@ -124,6 +125,9 @@ export default{
     },
     scSize() {
       return this.$store.getters.shoppingCartSize
+    },
+    userFirstName() {
+      return this.$store.getters.userFirstName
     }
   }
 }

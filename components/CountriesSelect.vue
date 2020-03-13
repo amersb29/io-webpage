@@ -14,7 +14,8 @@
                         <b-form-select-option-group v-for="country in data.countries" :key="country.id" :label="country.name">
                             <b-form-select-option v-for="sede in country.sedes" 
                                     :key="sede.id" 
-                                    :value="sede.id">
+                                    :value="sede.id"
+                                    :state="state">
                                 {{ sede.name }}
                             </b-form-select-option>
                         </b-form-select-option-group>
@@ -33,6 +34,10 @@ export default {
             default: ''
         },
         onlyCountries: {
+            type: Boolean,
+            default: false
+        },
+        state: {
             type: Boolean,
             default: false
         },

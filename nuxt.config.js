@@ -36,7 +36,8 @@ module.exports = {
   */
   plugins: [
     '~/plugins/accounting.js',
-    '~/plugins/get-image.js'
+    '~/plugins/get-image.js',
+    "~/plugins/vee-validate.js",
   ],
 
   /*
@@ -149,6 +150,7 @@ module.exports = {
     /*
     ** You can extend webpack config here
     */
+    transpile: ["vee-validate/dist/rules"],
     extend(config, ctx) {
       if(ctx.isDev) {
         config.devtool = ctx.isClient ? 'source-map' : 'inline-source-map'

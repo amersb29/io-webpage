@@ -5,8 +5,9 @@ export const state = () => ({
     authMode: 'signIn',
     campusId: 1, //México
     campusCode: null,
+    discount: 0,
     shoppingCart: [],
-    discount: 0
+    user: null,
 })
 
 export const mutations = {
@@ -31,6 +32,9 @@ export const mutations = {
     },
     updateDiscount(state, discount){
         state.discount = discount
+    },
+    updateUser(state, newUser) {
+        state.user = newUser
     }
 }
 
@@ -43,9 +47,11 @@ export const getters = {
     shoppingCart: state => state.shoppingCart,
     shoppingCartSize: state => state.shoppingCart.length ? state.shoppingCart.reduce((a,b) => a + b.counter, 0) : 0,
     shoppingCartTotal: state => state.shoppingCart.length ? state.shoppingCart.reduce((a,b) => a + (b.counter * b.price), 0) : 0,
+    userFirstName: state => state.user ? state.user.first_name : ''
 }
 
 export const actions = {
+
     async queryCampus({commit, getters}){
         const apollo_client = this.app.apolloProvider.defaultClient
         const res = await apollo_client.query({
@@ -58,6 +64,16 @@ export const actions = {
         if(res.data.country){
             commit('changeCampus', {id: +res.data.country.id, code: res.data.country.code} )
         }
+    },
+    storeToken({commit}, loginObj) {
+        sessionStorage.setItem('apollo-token', loginObj.access_token)
+        commit('changeAccessToken', loginObj.access_token)
+        commit('updateUser', loginObj.user)
+    },
+    removeToken({commit}) {
+        sessionStorage.removeItem('apollo-token')
+        commit('changeAccessToken', null)
+        commit('updateUser', null)
     },
     addProduct({commit, state}, {id, name, image, tipoProducto: { price }, type = 'video'}) {
         const sc = [...state.shoppingCart]

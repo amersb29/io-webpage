@@ -34,7 +34,8 @@
     "money": "^0.2.0",
     "nuxt": "^2.11.0",
     "nuxt-fontawesome": "^0.4.0",
-    "nuxt-sweetalert2": "^1.0.0"
+    "nuxt-sweetalert2": "^1.0.0",
+    "vee-validate": "^3.2.5"
   },
   "devDependencies": {
     "@nuxtjs/dotenv": "^1.4.1",

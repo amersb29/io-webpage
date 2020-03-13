@@ -184,4 +184,47 @@ html {
   margin-top: -60px !important;
   padding: 150px 0  60px;
 }
+.auth-button-container
+{
+  align-items: center;
+  display: flex;
+  width: 100%;
+  padding-left: 1.6em;
+}
+.sing-in {
+  justify-content: space-between;
+}
+.sign-up {
+  justify-content: center;
+}
+.auth-button-container button {
+  margin-bottom: 10px;
+  width: fit-content;
+}
+.flexForm {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.flexForm > span {
+  flex: 0 45%;
+}
+.suSuccess {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.suSuccess h1{
+  text-align: center;
+}
+.suSuccess p {
+  margin: 15px 50px !important;
+}
+.suSuccess p:first-of-type {
+  margin-top: 20px !important;
+}
+.suSuccess p span {
+  color: #dc3545;
+  text-decoration: underline;
+}
 </style>
