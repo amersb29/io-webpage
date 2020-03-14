@@ -101,7 +101,7 @@
                                 >
                         <b-form-input id="contrasenia_2" 
                                     type="password" 
-                                    v-model.lazy='checkPassword'
+                                    v-model.lazy='user.password_confirmation'
                                     :state="passwordValidation.valid && valid"/>
                         <span class="txtRed">
                             {{ errors[0] }}
@@ -136,13 +136,12 @@ export default {
     mixins: [GraphQlMixin],
     data() {
         return {
-            checkPassword: null,
             pwdValidationError: {valid: false, errors: []},
             rules: [
-                { message:'One lowercase letter required.', regex:/[a-z]+/ },
-				{ message:"One uppercase letter required.",  regex:/[A-Z]+/ },
-				{ message:"8 characters minimum.", regex:/.{8,}/ },
-				{ message:"One number required.", regex:/[0-9]+/ }
+                { message:'Se requiere una letra minúscula.', regex:/[a-z]+/ },
+				{ message:"Se requiere una letra mayúscula.",  regex:/[A-Z]+/ },
+				{ message:"8 caracteres como mínimo.", regex:/.{8,}/ },
+				{ message:"Se requiere al menos un número.", regex:/[0-9]+/ }
 			],
             signUpSuccess: false,
             user: {
@@ -150,6 +149,7 @@ export default {
                 lastName:  null,
                 email:     null,
                 password:  null,
+                password_confirmation: null,
                 mem_id:    0,   // Sin membresía
                 country_id: 1,  // México
                 state: 0,       // Inactivo
@@ -159,7 +159,7 @@ export default {
     },
     computed: {
         notSamePasswords () {
-                return this.user.password !== this.checkPassword
+                return this.user.password !== this.user.password_confirmation
         },
         passwordValidation() {
             let errors = []
@@ -188,7 +188,7 @@ export default {
             console.log('Sign Up')
             const res = await this.executeMutation(SignUp, this.user)
             
-            if(res.id){
+            if(res.status === 'SUCCESS'){
                 this.signUpSuccess = true
             }
         },

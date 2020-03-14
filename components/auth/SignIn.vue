@@ -31,10 +31,10 @@
                                     required 
                                     v-model="user.password"
                                     :state="valid"/>
-                    </b-form-group>
                     <span class="txtRed">
                         {{ errors[0] }}
                     </span>
+                    </b-form-group>
                 </ValidationProvider>
                 <div class="auth-button-container sign-in">
                     <div>
