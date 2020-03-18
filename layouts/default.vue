@@ -11,7 +11,19 @@ import Menu from '~/components/menus/Menu.vue'
 import Footer from '~/components/footer/Footer.vue'
 
 export default {
-  components: {Footer, Menu}
+  components: {Footer, Menu},
+  mounted() {
+    const sc = sessionStorage.getItem('shopping-cart')
+    const at = sessionStorage.getItem('apollo-token')
+
+    if( sc ) {
+      this.$store.commit('updateCart', JSON.parse(sc))
+    }
+
+    if( at ) {
+      this.$store.commit('changeAccessToken', at)
+    }
+  }
 }
 </script>
 <style>

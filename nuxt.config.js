@@ -135,7 +135,7 @@ module.exports = {
       // websocketsOnly: false // Optional
     },
     test: {
-      httpEndpoint: 'http://membresias-io.test/graphql',
+      httpEndpoint: 'http://rest-io.test/graphql',
       // wsEndpoint: 'ws://localhost:5000',
       tokenName: 'apollo-token'
     },

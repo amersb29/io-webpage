@@ -12,8 +12,7 @@
 export default {
   props: ['avatar', 'name', 'comment'],
   computed: {
-    avatarImg: obj => {console.log(obj.avatar);
-      // return require(`~/assets/img/${obj.avatar}`)
+    avatarImg: obj => {
       return require('~/assets/img/'+obj.avatar)
     }
   }

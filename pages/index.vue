@@ -210,9 +210,6 @@ import Frase from '~/components/Frase.vue'
 
 export default{
   components: {Benefit, Card, Testimonio, Frase},
-  mounted(){
-    this.$store.dispatch('queryCampus')
-  }
 }
 </script>
 

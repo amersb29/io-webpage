@@ -16,6 +16,8 @@ export const mutations = {
         state.shoppingCart = cart.sort((a, b) => {
             return a.type < b.type ? -1 : 1 
         })
+
+        sessionStorage.setItem('shopping-cart', JSON.stringify(state.shoppingCart))
     },
     changeAccessToken(state, newToken){
         state.access_token = newToken
