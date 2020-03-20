@@ -4,20 +4,24 @@ export const state = () => ({
     access_token: null,
     authMode: 'signIn',
     campusId: 1, //México
-    campusCode: null,
+    campusCode: 'CDMX',
+    currency: 'MXN',
     discount: 0,
     shoppingCart: [],
     user: null,
 })
 
 export const mutations = {
-
     updateCart(state, cart) {
         state.shoppingCart = cart.sort((a, b) => {
             return a.type < b.type ? -1 : 1 
         })
 
         sessionStorage.setItem('shopping-cart', JSON.stringify(state.shoppingCart))
+
+        if(!cart.length) {
+            state.discount = 0
+        }
     },
     changeAccessToken(state, newToken){
         state.access_token = newToken
@@ -31,6 +35,9 @@ export const mutations = {
     },
     updateCampusId(state, id){
         state.campusId = id
+    },
+    updateCurrency(state, newCurrency) {
+        state.currency = newCurrency
     },
     updateDiscount(state, discount){
         state.discount = discount
@@ -48,7 +55,8 @@ export const getters = {
     isSignUp: state => state.authMode === 'signUp',
     shoppingCart: state => state.shoppingCart,
     shoppingCartSize: state => state.shoppingCart.length ? state.shoppingCart.reduce((a,b) => a + b.counter, 0) : 0,
-    shoppingCartTotal: state => state.shoppingCart.length ? state.shoppingCart.reduce((a,b) => a + (b.counter * b.price), 0) : 0,
+    shoppingCartSubTotal: state => state.shoppingCart.length ? state.shoppingCart.reduce((a,b) => a + (b.counter * b.price), 0) : 0,
+    shoppingCartTotal: state => state.shoppingCart.length ? state.shoppingCart.reduce((a,b) => a + (b.counter * b.price), 0) - state.discount : 0,
     userFirstName: state => state.user ? state.user.first_name : ''
 }
 

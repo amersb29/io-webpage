@@ -5,7 +5,7 @@
                 <img :src="productImage" :alt="name"/>
             </div>
         </b-col>
-        <b-col  cols="5">
+        <b-col cols="5" class="cart-details">
             <div class="cart-name">
                 <span>Curso:</span>
                 <div>{{name}}</div>
@@ -100,6 +100,9 @@ export default {
 }
 .cart-image img{
     width: 100%;
+}
+.cart-details {
+    height: 200px;
 }
 .cart-name div{
     width: 100%;

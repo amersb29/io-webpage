@@ -12,9 +12,12 @@ import Footer from '~/components/footer/Footer.vue'
 
 export default {
   components: {Footer, Menu},
-  mounted() {
+  async mounted() {
     const sc = sessionStorage.getItem('shopping-cart')
     const at = sessionStorage.getItem('apollo-token')
+  
+    const ipInfo = await this.$axios.$get('http://ip-api.com/json/?fields=status,country,countryCode,currency')
+    this.$store.commit('updateCurrency', ipInfo.currency)
 
     if( sc ) {
       this.$store.commit('updateCart', JSON.parse(sc))

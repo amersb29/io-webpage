@@ -44,6 +44,8 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
+    //Axios
+    '@nuxtjs/axios',
     //DotEnv
     '@nuxtjs/dotenv',
     // Doc: https://bootstrap-vue.js.org/docs/
