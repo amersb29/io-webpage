@@ -95,6 +95,7 @@ export default{
   },
   methods: {
     cambiarSede( id ){
+      // TODO: Cambiar la forma en que se almacena la sede en el estado con base en la consulta por IP
       this.$store.commit('updateCampusId', id)
     },
     showModal (mode) {

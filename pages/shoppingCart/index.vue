@@ -29,11 +29,11 @@
                     </h4>
                     <div class="cart-payment-subtotal">
                         <span>Subtotal:</span>
-                        <span>{{total | currency}}</span>
+                        <span>{{subTotal | currency}}</span>
                     </div>
                     <div class="cart-payment-cupon">
                         <div v-if="isCouponApplied" class="cupon-applied">
-                            Cupón aplicado
+                            Cupón aplicado 🎉
                         </div>
                         <b-form @submit.prevent="applyCoupon($event)" v-else>
                             <b-form-input id="input-1" v-model="code" trim placeholder="Introducir el cupón" size="sm"></b-form-input>
@@ -42,9 +42,9 @@
                     </div>
                     <div class="cart-payment-total">
                         <span>Total:</span>
-                        <span>{{total - discount | currency}}</span>
+                        <span>{{total | currency}}</span>
                     </div>
-                    <b-button variant="warning" >Pagar</b-button>
+                    <div ref="paypal" class="paypal-buttons"></div>
                 </div>
             </b-col>
         </b-row>
@@ -59,9 +59,17 @@ import query from '@/graphql/queries/Cupon.gql'
 
 export default {
     components: {Product, FontAwesomeIcon},
+    mounted() {
+        const script = document.createElement('script')
+        script.src = `https://www.paypal.com/sdk/js?currency=${this.$store.state.currency}&client-id=${process.env.paypal_id}`
+        script.addEventListener('load', this.setLoaded)
+        document.body.appendChild(script)
+    },
     data() {
         return {
-            code: ''
+            code: '',
+            loaded: false,
+            paidFor: false,
         }
     },
     computed: {
@@ -70,6 +78,9 @@ export default {
         },
         products() {
             return this.$store.getters.shoppingCart
+        },
+        subTotal() {
+            return this.$store.getters.shoppingCartSubTotal
         },
         total() {
             return this.$store.getters.shoppingCartTotal
@@ -99,6 +110,42 @@ export default {
                 
             })
             .catch( error => console.log(error))
+        },
+        setLoaded() {
+            // https://developer.paypal.com/docs/checkout/best-practices/smart-payment-buttons/
+            this.loaded = true
+            
+            window.paypal
+                .Buttons({
+                    createOrder: (data, actions) => {
+                        return actions.order.create({
+                            purchase_units: [
+                                this.$store.getters.shoppingCart.reduce( (a, b) => {
+                                    return { 
+                                                description: a.description +', '+ b.name.toLowerCase(), 
+                                                // amount: {value: a.amount.value + (Number.parseFloat(b.price) * b.counter) }
+                                                amount: { value: this.$store.getters.shoppingCartTotal }
+                                            }
+                                }, {description: '', amount: { value: 0 } } )
+                            ]
+                                            
+                        })
+                    },
+                    onApprove: function(data, actions) {
+                        return actions.order.capture().then(function(details) {
+                            // TODO: Registrar la compra (usuario::id)
+                            //       Asociar los productos a la compra (producto::id, compra::id) 
+                            // TODO: Registrar pago (usuario::id, compra::id, metodoPago::id, total)
+                            // TODO: Actualizar la información del usuario si pagó membresía (activo, tipo_membresía)
+                            //       Asignar los productos al usuario
+                            // TODO: Mostrar modal con los productos comprados
+                            debugger
+                            // This function shows a transaction success message to your buyer.
+                            alert('Transaction completed by ' + details.payer.name.given_name);
+                        });
+                    }
+                })
+                .render(this.$refs.paypal)
         }
     }
 
@@ -125,7 +172,7 @@ export default {
 .cart-payment {
     border: 2px solid #D63D37;
     border-radius: 5px;
-    height: 300px;
+    min-height: 300px;
     padding: 10px;
 
     display: flex;
@@ -145,7 +192,6 @@ export default {
 }
 .cart-payment-subtotal {
     font-size: 1.1em;
-    font-weight: bold;
     height: 20%;
 }
 .cart-payment-subtotal,
@@ -161,6 +207,7 @@ export default {
 }
 .cart-payment-cupon {
     display: flex;
+    margin-top: 20px;
     text-align: center;
     width: 100%;
 }
@@ -179,5 +226,8 @@ export default {
 .cupon-applied {
     height: 31px;
     width: inherit;
+}
+.paypal-buttons{
+    margin-top: 10px;
 }
 </style>
