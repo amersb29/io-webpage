@@ -15,6 +15,7 @@ export default {
   async mounted() {
     const sc = sessionStorage.getItem('shopping-cart')
     const at = sessionStorage.getItem('apollo-token')
+    const usr = sessionStorage.getItem('user-info')
   
     const ipInfo = await this.$axios.$get('http://ip-api.com/json/?fields=status,country,countryCode,currency')
     this.$store.commit('updateCurrency', ipInfo.currency)
@@ -25,6 +26,10 @@ export default {
 
     if( at ) {
       this.$store.commit('changeAccessToken', at)
+    }
+
+    if ( usr ) {
+      this.$store.commit('updateUser', JSON.parse(usr))
     }
   }
 }

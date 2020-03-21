@@ -24,6 +24,7 @@ export const mutations = {
         }
     },
     changeAccessToken(state, newToken){
+        sessionStorage.setItem('apollo-token', newToken)
         state.access_token = newToken
     },
     changeAuthMode(state, newMode){
@@ -43,6 +44,7 @@ export const mutations = {
         state.discount = discount
     },
     updateUser(state, newUser) {
+        sessionStorage.setItem('user-info', JSON.stringify(newUser))
         state.user = newUser
     }
 }
@@ -76,7 +78,6 @@ export const actions = {
         }
     },
     storeToken({commit}, loginObj) {
-        sessionStorage.setItem('apollo-token', loginObj.access_token)
         commit('changeAccessToken', loginObj.access_token)
         commit('updateUser', loginObj.user)
     },
