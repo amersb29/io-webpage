@@ -107,7 +107,9 @@ export default{
     },
     signOut() {
       this.$store.dispatch('removeToken')
-      this.$router.replace({ path: '/' })
+      if(this.$route.name !== 'index') {
+        this.$router.replace({ path: '/' })
+      }
     },
     validateToken() {
       if(this.$store.getters.access_token) {

@@ -122,8 +122,7 @@ export default {
                             purchase_units: [
                                 this.$store.getters.shoppingCart.reduce( (a, b) => {
                                     return { 
-                                                description: a.description +', '+ b.name.toLowerCase(), 
-                                                // amount: {value: a.amount.value + (Number.parseFloat(b.price) * b.counter) }
+                                                description: a.description +', '+ b.name.toLowerCase(),
                                                 amount: { value: this.$store.getters.shoppingCartTotal }
                                             }
                                 }, {description: '', amount: { value: 0 } } )

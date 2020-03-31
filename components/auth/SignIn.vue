@@ -1,5 +1,20 @@
 <template>
-    <div>
+    <div v-if="!userVerified" class="suSuccess">
+        <h1>
+            ¡Tu cuenata requiere ser activada!
+        </h1> 
+        <p>
+            Hemos detectado que tu cuenta <span>no ha sido verificada.</span>
+        </p>
+        <p>
+            En el proceso de registro te hemos enviado un correo electrónico con las instrucciones que deberás realizar para activar tu cuenta.
+        </p>
+        <p>
+            Si requieres que te enviemos nuevamente el correo de verificación da <span>Click Aquí.</span>
+        </p>
+        <b-button @click="closeModal" variant="danger">Cerrar</b-button>
+    </div>
+    <div v-else>
         <ValidationObserver v-slot="{ invalid }">
             <b-form @submit.prevent="signIn" class="flexForm">
                 <ValidationProvider
@@ -65,21 +80,32 @@ export default {
         }
     },
     methods: {
+        closeModal(){
+            this.$emit('onClose')
+        },
         forgotPswd() {
             this.$store.commit('changeAuthMode', 'restorePwd')
         },
-        async signIn() {
+        signIn() {
             console.log('Sign In')
-            const {username, password} = this.user
-            const res = await this.executeMutation(SignIn, {username, password})
-            
-            this.$store.dispatch('storeToken', res)
-
-            this.$emit('onClose')
+            this.$store.dispatch('login', {mutation: SignIn, variables: this.user })
         },
         openSignUp() {
             this.$store.commit('changeAuthMode', 'signUp')
         },
+    },
+    computed: {
+        token() {
+            return this.$store.getters.access_token
+        },
+        userVerified () {
+            return this.$store.getters.userVerified
+        },
+    },
+    watch: {
+        token (newToken, oldToken) {
+            this.closeModal()
+        }
     }
 }
 </script>

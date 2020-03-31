@@ -143,7 +143,6 @@ export default {
 				{ message:"8 caracteres como mínimo.", regex:/.{8,}/ },
 				{ message:"Se requiere al menos un número.", regex:/[0-9]+/ }
 			],
-            signUpSuccess: false,
             user: {
                 firstName: null,
                 lastName:  null,
@@ -179,18 +178,16 @@ export default {
                 return { valid:false, errors }
             }
         },
+        signUpSuccess () {
+            return this.$store.getters.signUpSuccess
+        },
         validForm() {
             return true
         },
     },
     methods: {
         async signUp() {
-            console.log('Sign Up')
-            const res = await this.executeMutation(SignUp, this.user)
-            
-            if(res.status === 'SUCCESS'){
-                this.signUpSuccess = true
-            }
+            this.$store.dispatch('registerUser', { mutation: SignUp, variables: this.user })
         },
         closeModal() {
             this.$emit('onClose')

@@ -20,6 +20,9 @@ mutation(
         state: $state
         roles: { sync: $roles }
     }){
+        tokens {
+            access_token
+        }
         status
     }
 }
