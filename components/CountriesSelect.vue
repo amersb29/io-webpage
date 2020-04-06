@@ -1,7 +1,14 @@
 <template>
     <ApolloQuery :query="require(`@/graphql/queries/Countries.gql`)">
         <template v-slot="{ result: { loading, error, data } }">
-            <!-- <div v-if="loading" class="loading apollo">Loading...</div> -->
+            <div v-if="loading" class="loading apollo">
+                <div style="display: flex; justify-content: center;">
+                    <b-spinner
+                        variant="danger"
+                        type="grow"
+                    ></b-spinner>
+                </div>
+            </div>
             <div v-if="error" class="error apollo">An error occurred</div>
             <div v-else-if="data">
                 <b-form-select @input="emitSedeId($event)" :name="name" v-model="value">

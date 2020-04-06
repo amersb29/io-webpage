@@ -7,6 +7,7 @@ export const state = () => ({
     campusCode: 'CDMX',
     currency: 'MXN',
     discount: 0,
+    resetPwdSuccess: false,
     shoppingCart: [],
     signUpSuccess: false,
     user: null,
@@ -54,6 +55,9 @@ export const mutations = {
     },
     changeSignUpSuccess (state, payload) {
         state.signUpSuccess = payload
+    },
+    changeResetPwdSuccess (state, payload) {
+        state.resetPwdSuccess = payload
     }
 }
 
@@ -63,6 +67,7 @@ export const getters = {
     discount: state => state.discount,
     isSignIn: state => state.authMode === 'signIn', 
     isSignUp: state => state.authMode === 'signUp',
+    resetPwdSuccess: state => state.resetPwdSuccess,
     shoppingCart: state => state.shoppingCart,
     shoppingCartSize: state => state.shoppingCart.length ? state.shoppingCart.reduce((a,b) => a + b.counter, 0) : 0,
     shoppingCartSubTotal: state => state.shoppingCart.length ? state.shoppingCart.reduce((a,b) => a + (b.counter * b.price), 0) : 0,
@@ -105,6 +110,19 @@ export const actions = {
                 } else {
                     commit('changeUserVerified', false)
                 }
+            })
+    },
+    sendResetPassword({commit}, {mutation, variables}){
+        const apollo_client = this.app.apolloProvider.defaultClient
+
+        apollo_client.mutate({ mutation, variables })
+            .then( ({ data: { res: { status, message } } })  => {
+                if( status === 'EMAIL_SENT') {
+                    commit('changeResetPwdSuccess', true)
+                }
+            })
+            .catch(error => {
+                console.log(error)
             })
     },
     async queryCampus({commit, getters}){

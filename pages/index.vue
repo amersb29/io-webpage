@@ -108,58 +108,43 @@
           <b-row style="height: 600px;" class="centerContentColum">
             <b-col md="10">
               <div id="catalogo-grid">
-                <div>
-                  <img src="../assets/img/Imagen_conferencias_en_linea.jpg" alt="Conferencias en línea">
-                  <!-- <Card title="Conferencias en línea"
-                    link="conferencias_linea"
-                    price="699"
-                    image="Imagen_conferencias_en_linea.jpg"
-                    height="lg" /> -->
+                <div class="catalogo-item">
+                  <nuxt-link to="/catalogo/2">
+                    <section class="catalogo-item-section-large">
+                      <p>Conferencias en línea</p>
+                      <p>$699.00 MXN</p>
+                    </section>
+                    <img src="../assets/img/Imagen_conferencias_en_linea.jpg" alt="Conferencias en línea">
+                  </nuxt-link>
                 </div>
-                <!-- <div>&nbsp;</div> -->
-                <div>
-                  <img src="../assets/img/imagen_cursos_en_linea.jpg" alt="Cursos en línea">
+                <div class="catalogo-item">
+                  <nuxt-link to="/catalogo/1">
+                    <section class="catalogo-item-section-small">
+                      <p>Cursos en línea</p>
+                      <p>$2,499.00 MXN</p>
+                    </section>
+                    <img src="../assets/img/imagen_cursos_en_linea.jpg" alt="Cursos en línea">
+                  </nuxt-link>
                 </div>
-                <!-- <div>&nbsp;</div> -->
-                <div>
-                  <img src="../assets/img/Imagen_Documentales.jpg" alt="Documentales">
+                <div class="catalogo-item">
+                  <nuxt-link to="/catalogo/3">
+                    <section  class="catalogo-item-section-small">
+                      <p>Documentales</p>
+                      <p>$800.00 MXN</p>
+                    </section>
+                    <img src="../assets/img/Imagen_Documentales.jpg" alt="Documentales">
+                  </nuxt-link>
                 </div>
-                <!-- <div>&nbsp;</div> -->
-                <div>
-                  <img src="../assets/img/Imagen_conferencias_presenciales.jpg" alt="Conferencias presenciales" >
+                <div class="catalogo-item">
+                  <nuxt-link to="/cursos_presenciales">
+                    <section class="catalogo-item-section-large">
+                      <p>Conferencias presenciales</p>
+                      <p>$700.00 MXN</p>
+                    </section>
+                    <img src="../assets/img/Imagen_conferencias_presenciales.jpg" alt="Conferencias presenciales" >
+                  </nuxt-link>
                 </div>
-                <!-- <div>&nbsp;</div> -->
               </div>
-              <!-- <div class="lt-grid-container">
-                <div style="grid-column-start: 1; grid-row-start: 1; ">
-                  <Card title="Conferencias en línea"
-                    link="conferencias_linea"
-                    price="699"
-                    image="Imagen_conferencias_en_linea.jpg"
-                    height="lg" />
-                </div>
-                <div style="grid-column-start: 2; grid-column-end: 3; grid-row-start: 1; ">
-                  <Card title="Cursos en línea"
-                                        link="cursos_linea"
-                                        price="2,499"
-                                        image="imagen_cursos_en_linea.jpg"
-                                        height="sm"/>
-                </div>
-                <div style="grid-column-start: 2; grid-column-end: 3; grid-row-start: 2; margin-left: 45px;">
-                  <Card title="Documentales"
-                      link="documentales"
-                      price="799"
-                      image="Imagen_Documentales.jpg"
-                      height="sm"/>
-                </div>
-                <div style="grid-column-start: 4; grid-column-end: 6; grid-row-start: 1;">
-                  <Card title="Conferencias Presenciales"
-                    link="presenciales"
-                    price="400"
-                    image="Imagen_conferencias_presenciales.jpg"
-                    height="lg"/>
-                </div>
-              </div> -->
             </b-col>
           </b-row>
       </b-col>
@@ -168,9 +153,9 @@
 
     <b-row class="red_list">
       <b-col md="3" offset-md="1">
-         <Benefit text="Conéctate desde tus dispositivos preferidos"
-                 description="Puedes ver desde cualquier dispositivo nuestros cursos y conferencias"
-                 icon="cloud"/>
+        <Benefit text="Conéctate desde tus dispositivos preferidos"
+                description="Puedes ver desde cualquier dispositivo nuestros cursos y conferencias"
+                icon="cloud"/>
       </b-col>
       <b-col md="3">
         <Benefit text="Aprende a tu ritmo"
@@ -232,7 +217,7 @@ export default{
 #catalogo-grid div img
 {
   margin: 0;
-  width: inherit;
+  width: 100%;
 }
 
 #catalogo-grid div:first-child
@@ -279,6 +264,45 @@ export default{
   grid-row-end: 4;
 }
 
+.catalogo-item {
+  position: relative;
+}
+.catalogo-item a {
+  text-decoration: none;
+}
+.catalogo-item section {
+  align-content: center;
+  background-color: #000;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  position: absolute;
+  opacity: 0;
+  transition: opacity .2s, visibility .2s;
+  visibility: hidden;
+  width: 100%;
+}
+.catalogo-item:hover section {
+  opacity: .8;
+  visibility: visible;
+}
+.catalogo-item section p {
+  opacity: 1;
+}
+.catalogo-item section p:first-child {
+  color: red;
+}
+.catalogo-item .catalogo-item-section-large p:first-child {
+  font-size: 2.5em;
+}
+.catalogo-item .catalogo-item-section-small p:first-child {
+  font-size: 2em;
+}
+.catalogo-item section p:nth-child(2) {
+  color: #fff;
+  font-size: 1.5em;
+}
 #redesSociales{
   list-style: none;
   display: flex;

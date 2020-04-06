@@ -2,13 +2,11 @@
   <div class="container">
     <div class="row justify-content-center margin-bottom-50">
       <div class="col-md-1">
-        <a class="btn btn-danger"
-           href="/assets/docs/aviso_de_privacidad_inteligencia_objetiva.pdf"
-           title=""
-           download>
-            <i class="fas fa-download icon-btn"></i>
+        <nuxt-link class="btn btn-danger"
+           to="/assets/docs/aviso_de_privacidad_inteligencia_objetiva.pdf">
+            <font-awesome-icon icon="download" />
             Descargar
-        </a>
+        </nuxt-link>
       </div>
     </div>
       <div class="row margin-bottom-100">
@@ -102,13 +100,13 @@
       <h3>4.1 PASARELAS DE PAGO AUTORIZADAS.</h3>
 
       <div>
-      	<!-- <img src="~/assets/img/logo-openpay.png" style="width: 200px;"> -->
+      	<img src="../../assets/img/logo-openpay.png" style="width: 200px;">
       	<p>Aviso de privacidad- <a href="https://www.openpay.mx/aviso-de-privacidad.html" title="">https://www.openpay.mx/aviso-de-privacidad.html</a> </p>
       </div>
 
 
       <div>
-      	<!-- <img src="~/assets/img/paypal-logo-vector-400x400.png" style="width: 200px;"> -->
+      	<img src="../../assets/img/paypal-logo-vector-400x400.png" style="width: 200px;">
       	<p>Aviso de privacidad- <a href="https://www.paypal.com/mx/webapps/mpp/ua/privacy-full?locale.x=es_MX" title="">https://www.paypal.com/mx/webapps/mpp/ua/privacy-full?locale.x=es_MX</a></p>
       </div>
 
@@ -254,7 +252,10 @@
 </template>
 
 <script>
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
 export default {
+  components: {FontAwesomeIcon},
 }
 </script>
 

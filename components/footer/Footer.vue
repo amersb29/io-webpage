@@ -53,7 +53,8 @@ export default {
             },
             {
               icon: ['fas','envelope'],
-              text: 'contacto@iobjetiva.com'
+              text: 'contacto@iobjetiva.com',
+              href: 'mailto:contacto@iobjetiva.com'
             },
             {
               icon: ['fas','map-marker-alt'],
@@ -66,29 +67,32 @@ export default {
           items: [
             {
               icon: ['fab','facebook-square'],
-              text: '/InteligenciaObjetivaMx',
-              applyPadding: true
+              text: 'InteligenciaObjetivaMx',
+              applyPadding: true,
+              href: 'https://www.facebook.com/InteligenciaObjetivaMx'
             },
             {
               icon: ['fab','youtube'],
               text: 'InteligenciaObjetivaMx',
-              applyPadding: true
-            },
-            {
-              icon: ['fab','facebook-square'],
-              text: '/televisionobjetivamx',
-              applyPadding: true
+              applyPadding: true,
+              href: 'https://www.youtube.com/channel/UC2Hh4LQmMHAxyZ6mX1t1bPA'
             },
             {
               icon: ['fas','desktop'],
               text: 'televisionobjetiva.com',
-              applyPadding: true
+              applyPadding: true,
+              href: 'https://televisionobjetiva.com/'
+            },
+            {
+              icon: ['fab','facebook-square'],
+              text: 'televisionobjetivamx',
+              applyPadding: true,
+              href: 'https://www.facebook.com/TelevisionObjetivaMx/'
             },
           ]
         },
         {
           title: 'Categorías',
-          isUlList: true,
           items: [
             {
               to: '/catalogo/1',
@@ -122,7 +126,6 @@ export default {
         },
         {
           title: 'Conócenos',
-          isUlList: true,
           items: [
             {
               to: '/nosotros',

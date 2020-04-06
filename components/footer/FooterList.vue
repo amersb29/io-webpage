@@ -1,18 +1,17 @@
 <template>
     <div class="col-md-3 txtWhite">
         <h2 class="h2-footer txtWhite">{{listTitle}}</h2>
-        <ul v-if="isUlList" class="lista-footer">
+        <ul class="lista-footer">
             <li v-for="listItem in listItems" :key="listItem.text" class="contacto">
-                <FooterListItem :nuxtLink="true" :text="listItem.text" :to="listItem.to"/>
-            </li>
-        </ul>
-
-        <FooterListItem v-else 
-                    v-for="listItem in listItems" 
-                    :key="listItem.text" 
+                <FooterListItem 
                     :icon="listItem.icon" 
                     :text="listItem.text"
-                    :applyPadding="listItem.applyPadding"/>
+                    :applyPadding="listItem.applyPadding" 
+                    :to="listItem.to"
+                    :href="listItem.href"
+                    />
+            </li>
+        </ul>
     </div>
 </template>
 
@@ -30,24 +29,26 @@ export default {
 </script>
 
 <style>
-.contacto{
+.contacto {
     align-items: center;
     display: flex;
-    margin: 0 0 15px;
+    min-height: 39px;
 }
-.h2-footer{
+.h2-footer {
     text-align: center;
-    padding-left: 40px;
     margin-bottom: 35px;
 }
-.lista-footer{
+.lista-footer {
     list-style: none;
     font-size: 1em;
-    padding-left: 70px;
+    padding: 0;
     text-align: left;
+    width: fit-content;
+    margin: 0 auto;
 }
 .lista-footer a {
     text-decoration: none;
     color: inherit;
+    padding: 0;
 }
 </style>

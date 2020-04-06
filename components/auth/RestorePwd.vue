@@ -1,19 +1,16 @@
 <template>
-    <div v-if="false" class="suSuccess">
+    <div v-if="resetPwdSuccess" class="suSuccess">
         <h1>
-            ¡Tu registro ha sido exitoso!
-        </h1> 
+            ¡Listo!
+        </h1>
         <p>
-            Por razones de seguridad tu usuario se encuentra <span>inactivo</span>.
+            Te hemos enviado por correo el enlace para restablecer tu contraseña
         </p>
-        <p>
-            Te hemos enviado un correo electrónico a <b>{{user.email}}</b> con las instrucciones que deberás realizar para activar tu cuenta.
-        </p>
-        <button @click="closeModal('signUp')" variant="danger">Cerrar</button>
+        <b-button @click="closeModal" variant="danger">Cerrar</b-button>
     </div>
     <div v-else>
         <ValidationObserver v-slot="{ invalid }">
-            <b-form @submit.prevent="restorePwd" class="flexForm">
+            <b-form @submit.prevent="sendResetPassword" class="flexForm">
                 <ValidationProvider
                     v-slot="{ errors, valid }"
                     name="Correo electrónico"
@@ -45,7 +42,7 @@
 <script>
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 import GraphQlMixin from '../../mixins/GraphQlMixin'
-import SignIn from '../../graphql/mutations/SignIn.gql'
+import ForgotPassword from '../../graphql/mutations/ForgotPassword.gql'
 
 export default {
     mixins: [GraphQlMixin],
@@ -58,15 +55,18 @@ export default {
         }
     },
     methods: {
-        async restorePwd() {
-            console.log('Restore Password')
-            const {username} = this.user
-            const res = await this.executeMutation(SignIn, {username})
-            
-            this.$store.dispatch('storeToken', res)
-
+        closeModal() {
+            this.$store.commit('changeResetPwdSuccess', false)
             this.$emit('onClose')
         },
+        sendResetPassword() {
+            this.$store.dispatch('sendResetPassword', { mutation: ForgotPassword, variables: { email: this.user.username } } )
+        },
+    },
+    computed: {
+        resetPwdSuccess() {
+            return this.$store.getters.resetPwdSuccess
+        }
     }
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-container class="container">
+    <b-container class="container margin-bottom-100">
         <b-row class="justify-content-center">
             <b-col class="col-md-7 centerContentColum">
                 <h2 class="txtRed">Pr&oacute;ximos Cursos</h2>

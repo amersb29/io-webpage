@@ -1,7 +1,15 @@
 const pkg = require('./package')
+require('dotenv').config()
 
 module.exports = {
   mode: 'spa',
+
+  axios: {
+    proxy: {
+      '/rest/': 'http://rest-io.test/',
+    }
+  },
+
   env: {
     apiURL: process.env.NUXT_ENV_IOAPI || 'http://membresias-io.test'
   },
