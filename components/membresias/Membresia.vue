@@ -10,7 +10,7 @@
     <ul class="lista-beneficios">
       <li v-for="benefit in benefits" v-html="benefit"></li>
     </ul>
-    <button class="btn btn-danger" @click="addToCart">Comprar</button>
+    <button class="btn btn-danger" @click="startWizard">Comprar</button>
   </div>
 </template>
 
@@ -21,18 +21,21 @@ export default {
   mixins: [SweetAlertMixin],
   props: ['id','type', 'price', 'currency', 'benefits', 'image'],
   methods: {
-    addToCart() {
-      const {id, price, type, image} = this.$props
-      const membresia = {
-        id,
-        name: `Membresía ${type.charAt(0) + type.slice(1).toLowerCase()}`,
-        image,
-        tipoProducto: { price },
-        type: 'membresia'
-      }
+    // addToCart() {
+    //   const {id, price, type, image} = this.$props
+    //   const membresia = {
+    //     id,
+    //     name: `Membresía ${type.charAt(0) + type.slice(1).toLowerCase()}`,
+    //     image,
+    //     tipoProducto: { price },
+    //     type: 'membresia'
+    //   }
       
-      this.$store.dispatch('addProduct', membresia)
-      this.printToastMsg('La membresía ha sido agregado al carrito', 'success')
+    //   this.$store.dispatch('addProduct', membresia)
+    //   this.printToastMsg('La membresía ha sido agregado al carrito', 'success')
+    // }
+    startWizard() {
+      this.$router.push(`/membresias/${this.id}`)
     }
   }
 }

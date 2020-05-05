@@ -30,7 +30,6 @@ export default {
                 return this.$store.getters.campusId
             },
             set: function( val ) {
-                // TODO: Cambiar la forma en que se almacena la sede en el estado con base en la consulta por IP
                 this.$store.commit('updateCampusId', val)
             }
         }

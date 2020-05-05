@@ -66,7 +66,7 @@
             <div v-else-if="data">
                 <ul>
                 <li v-for="sede in data.sedes" :key="sede.id">
-                    <a :class="sedeClassObj(sede.id)" @click="cambiarSede(sede.id)">{{sede.name}}</a>
+                    <a :class="sedeClassObj(sede.id)" @click="cambiarSede(sede)">{{sede.name}}</a>
                 </li>
                 </ul>
             </div>
@@ -94,9 +94,9 @@ export default{
     this.skipQuery = false
   },
   methods: {
-    cambiarSede( id ){
-      // TODO: Cambiar la forma en que se almacena la sede en el estado con base en la consulta por IP
-      this.$store.commit('updateCampusId', id)
+    cambiarSede( {id, code, country} ){
+      const currency = country.code === 'MX' ? 'MXN' : 'USD' 
+      this.$store.dispatch('changeCampus', { id, code, currency })
     },
     showModal (mode) {
       this.$store.commit('changeAuthMode', mode)

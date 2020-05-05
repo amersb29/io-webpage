@@ -2,5 +2,9 @@ query{
   sedes{
     id
     name
+    code
+    country {
+        code
+    }
   }
 }

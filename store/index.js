@@ -7,14 +7,46 @@ export const state = () => ({
     campusCode: 'CDMX',
     currency: 'MXN',
     discount: 0,
+    loading: false,
     resetPwdSuccess: false,
     shoppingCart: [],
+    signInError: undefined,
     signUpSuccess: false,
     user: null,
     userVerified: true,
 })
 
 export const mutations = {
+    changeAccessToken(state, newToken){
+        sessionStorage.setItem('apollo-token', newToken)
+        state.access_token = newToken
+    },
+    changeAuthMode(state, newMode){
+        state.authMode = newMode
+    },
+    changeCampus(state, {id, code, currency}){
+        state.campusCode = code
+        state.campusId = id
+        state.currency = currency
+    },
+    changeLogin(state, payload) {
+        state.loading = payload
+    },
+    changeResetPwdSuccess (state, payload) {
+        state.resetPwdSuccess = payload
+    },
+    changeSignInError(state, payload) {
+        state.signInError = payload
+    },
+    changeSignUpSuccess (state, payload) {
+        state.signUpSuccess = payload
+    },
+    changeUserVerified (state, payload) {
+        state.userVerified = payload
+    },
+    updateCampusId(state, id){
+        state.campusId = id
+    },
     updateCart(state, cart) {
         state.shoppingCart = cart.sort((a, b) => {
             return a.type < b.type ? -1 : 1 
@@ -26,38 +58,12 @@ export const mutations = {
             state.discount = 0
         }
     },
-    changeAccessToken(state, newToken){
-        sessionStorage.setItem('apollo-token', newToken)
-        state.access_token = newToken
-    },
-    changeAuthMode(state, newMode){
-        state.authMode = newMode
-    },
-    changeCampus(state, {id, code}){
-        state.campusCode = code
-        state.campusId = id
-    },
-    updateCampusId(state, id){
-        state.campusId = id
-    },
-    updateCurrency(state, newCurrency) {
-        state.currency = newCurrency
-    },
     updateDiscount(state, discount){
         state.discount = discount
     },
     updateUser(state, newUser) {
         sessionStorage.setItem('user-info', JSON.stringify(newUser))
         state.user = newUser
-    },
-    changeUserVerified (state, payload) {
-        state.userVerified = payload
-    },
-    changeSignUpSuccess (state, payload) {
-        state.signUpSuccess = payload
-    },
-    changeResetPwdSuccess (state, payload) {
-        state.resetPwdSuccess = payload
     }
 }
 
@@ -65,6 +71,7 @@ export const getters = {
     access_token: state => state.access_token,
     campusId: state => state.campusId,
     discount: state => state.discount,
+    isLoading: state => state.loading,
     isSignIn: state => state.authMode === 'signIn', 
     isSignUp: state => state.authMode === 'signUp',
     resetPwdSuccess: state => state.resetPwdSuccess,
@@ -72,6 +79,7 @@ export const getters = {
     shoppingCartSize: state => state.shoppingCart.length ? state.shoppingCart.reduce((a,b) => a + b.counter, 0) : 0,
     shoppingCartSubTotal: state => state.shoppingCart.length ? state.shoppingCart.reduce((a,b) => a + (b.counter * b.price), 0) : 0,
     shoppingCartTotal: state => state.shoppingCart.length ? state.shoppingCart.reduce((a,b) => a + (b.counter * b.price), 0) - state.discount : 0,
+    signInError: state => state.signInError,
     signUpSuccess: state => state.signUpSuccess,
     userFirstName: state => state.user ? state.user.first_name : '',
     userVerified: state => state.userVerified,
@@ -79,6 +87,7 @@ export const getters = {
 
 export const actions = {
     registerUser({commit}, { mutation, variables }) {
+        commit('changeLogin', true)
         const apollo_client = this.app.apolloProvider.defaultClient
 
         apollo_client.mutate({ mutation, variables })
@@ -95,12 +104,16 @@ export const actions = {
                 if( message.toLowerCase().indexOf('sent') >= 0 ) {
                     commit('changeSignUpSuccess', true)
                 }
+
+                commit('changeLogin', false)
             })
-            .catch( error => {
-                console.error(error)
+            .catch( () => {
+                commit('changeSignInError', 'Ha ocurrido un error con tu registro.')
+                commit('changeLogin', false)
             })
     },
     login ({commit, dispatch}, { mutation, variables }) {
+        commit('changeLogin', true)
         const apollo_client = this.app.apolloProvider.defaultClient
 
         apollo_client.mutate({ mutation, variables })
@@ -110,6 +123,12 @@ export const actions = {
                 } else {
                     commit('changeUserVerified', false)
                 }
+                commit('changeSignInError', undefined)
+                commit('changeLogin', false)
+            })
+            .catch( () => {
+                commit('changeSignInError', 'El usuario o la contraseña son inválidos.')
+                commit('changeLogin', false)
             })
     },
     sendResetPassword({commit}, {mutation, variables}){
@@ -137,6 +156,9 @@ export const actions = {
         if( res.data.country ){
             commit('changeCampus', {id: +res.data.country.id, code: res.data.country.code} )
         }
+    },
+    changeCampus({commit}, campusInfo){
+        commit( 'changeCampus', campusInfo )
     },
     storeToken({commit}, { access_token, user }) {
         commit('changeAccessToken', access_token)
